@@ -1,2 +1,17 @@
-<h1 class="container-md">Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<h1>新規登録</h1>
+<%= form_for(@user, url: {controller: 'users', action: 'create'}) do |f| %>
+<%= f.label :name, "名前" %>
+<%= f.text_field :name %><br>
+<%= f.label :email, "Eメール" %>
+<%= f.text_field :email %><br>
+<%= f.label :tel, "電話番号" %>
+<%= f.text_field :tel %><br>
+<%= f.label :address, '住所' %>
+<%= f.text_field :address %><br>
+<%= f.label :password, "パスワード" %>
+<%= f.text_field :password %><br>
+<%= f.label :password_confirmation, "パスワードの確認" %>
+<%= f.text_field :password_confirmation %><br>
+<%= f.submit label="登録" %>
+
+<% end %>

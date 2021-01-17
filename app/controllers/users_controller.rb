@@ -8,7 +8,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to u_show_path
+      session[:user_id] = @user.id
+      redirect_to u_show_path(@user)
     else
       render 'new'
     end
@@ -34,6 +35,23 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def login_user
+    user = User.find_by(email: params[:email])
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect_to u_show
+    else
+      render 'login_user'
+    end
+  end
+
+  def logout_user
+    if session[:user_id]
+      session.delete(:user_id)
+      redirect_to root_path
+    end
+  end
+
   private
 
     def user_params
@@ -41,7 +59,7 @@ class UsersController < ApplicationController
     end
 
     def set_user
-      @user = User.find_by(id: params[:id])
+      @user = User.find_by(id: session[:user_id])
     end
 
 end
