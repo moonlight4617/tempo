@@ -1,4 +1,4 @@
 <h1>マイアカウント</h1>
-<%= @user.name %>
-
-<%= link_to "編集", u_edit_path %>
+名前：<%= @user.name %><br>
+Eメール：<%= @user.email %><br>
+<%= link_to "登録情報編集", u_edit_path %>

@@ -16,6 +16,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    if @user == nil
+      redirect_to root_path
+    end
   end
 
   def edit
@@ -36,6 +39,9 @@ class UsersController < ApplicationController
   end
 
   def login_user
+  end
+
+  def post_login_user
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
@@ -47,7 +53,7 @@ class UsersController < ApplicationController
 
   def logout_user
     if session[:user_id]
-      session.delete(:user_id)
+      session[:user_id] = nil
       redirect_to root_path
     end
   end
@@ -55,7 +61,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:address, :tel, :email, :password, :password_confirm)
+      params.require(:user).permit(:name, :address, :tel, :email, :password, :password_confirmation)
     end
 
     def set_user
