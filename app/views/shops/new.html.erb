@@ -1,0 +1,7 @@
+<%= form_for(@shop, url: {controller: 'shops', action: 'create'}) do |f| %>
+<%= f.label :name, "店舗名" %>
+<%= f.text_field :name %><br>
+<%= f.label :image, "画像" %>
+<%= f.file_field :image %>
+<%= f.submit label='登録' %>
+<% end %>

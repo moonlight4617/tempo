@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  #shops
+  get 'shops/new', to: 'shops#new'
+  get 'shops/:id', to: 'shops#show', as: 's_show_path'
+  get 'shops/:id/edit'
+  post 'shops/create', to: 'shops#create'
+
   #users
   get 'users/new'
   get 'users/show'
