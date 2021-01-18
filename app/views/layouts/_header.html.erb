@@ -1,8 +1,9 @@
 <%= link_to "TOP", root_path %>
 <% if session[:user_id]%>
+<%# ログアウトとログインのパスを変更しました。 %>
 <%= link_to "マイアカウント", u_show_path %>
-<%= link_to "ログアウト", u_logout_path, method: :delete %>
+<%= link_to "ログアウト", user_logout_path, method: :delete %>
 <% else %>
-<%= link_to "ログイン", u_login_path %>
+<%= link_to "ログイン", user_login_path %>
 <%= link_to "新規会員登録", u_new_path %>
 <% end %>
