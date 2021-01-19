@@ -38,26 +38,6 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
-  def login_user
-  end
-
-  def post_login_user
-    user = User.find_by(email: params[:email])
-    if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
-      redirect_to u_show
-    else
-      render 'login_user'
-    end
-  end
-
-  def logout_user
-    if session[:user_id]
-      session[:user_id] = nil
-      redirect_to root_path
-    end
-  end
-
   private
 
     def user_params
@@ -68,4 +48,5 @@ class UsersController < ApplicationController
       @user = User.find_by(id: session[:user_id])
     end
 
+    
 end

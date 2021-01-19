@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_17_060739) do
+ActiveRecord::Schema.define(version: 2021_01_18_153505) do
 
   create_table "shops", force: :cascade do |t|
     t.string "prefecture"
@@ -33,12 +33,12 @@ ActiveRecord::Schema.define(version: 2021_01_17_060739) do
     t.string "address"
     t.integer "tel"
     t.string "email"
-    t.string "password"
     t.string "password_digest"
     t.integer "del_flg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.string "remember_digest"
   end
 
 end

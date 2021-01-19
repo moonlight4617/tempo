@@ -1,9 +1,0 @@
-<h1>ログイン</h1>
-<%= form_for(:user, url: {controller: 'users', action: 'post_login_user'}) do |f| %>
-<%= f.label :email, "Eメール" %>
-<%= f.text_field :email %><br>
-<%= f.label :password, "パスワード" %>
-<%= f.text_field :password %><br>
-<%= f.submit label="ログイン" %>
-
-<% end %>

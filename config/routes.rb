@@ -13,12 +13,13 @@ Rails.application.routes.draw do
   get 'users/new', to: 'users#new', as: 'u_new'
   get 'users/show', to: 'users#show', as: 'u_show'
   get 'users/edit', to: 'users#edit', as: 'u_edit'
-  get 'users/login', to: 'users#login_user', as: 'u_login'
   post 'users/create', to: 'users#create'
   patch 'users/update', to: 'users#update'
-  post 'users/create', to: 'users#post_login_user'
   post 'users/destroy', to: 'users#destroy'
-  delete 'users/logout', to: 'users#logout_user', as: 'u_logout'
 
+  #user_session
+  get 'users/login', to: 'user_sessions#new', as: 'user_login'
+  post 'users/loggedin', to: 'user_sessions#create', as: 'user_loggedin'
+  delete 'users/logout', to: 'user_sessions#logout', as: 'user_logout'
 
 end
