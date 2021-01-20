@@ -1,5 +1,29 @@
-<h1>マイアカウント</h1>
-名前：<%= @user.name %><br>
-Eメール：<%= @user.email %><br>
-プロフィール画像<%= image_tag @user.image.url if @user.image? %><br>
-<%= link_to "登録情報編集", u_edit_path %>
+<div class="container">
+  <h3 class="text-center">マイアカウント</h3>
+  <div class="row">
+    <div class="col-4">
+      <%= image_tag @user.image.url if @user.image? %>
+    </div>
+    <div class="col-8">
+      <%= @user.name %><br>
+      <i class="far fa-star"></i>
+      <i class="far fa-star"></i>
+      <i class="far fa-star"></i><br>
+      Eメール：<%= @user.email %><br>
+      <p>口コミ評価：口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文</p>
+      <%= link_to "登録情報編集", u_edit_path %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h2>現在申込中の店舗</h2>
+      <img src="https://via.placeholder.com/150">
+      <img src="https://via.placeholder.com/150">
+    </div>
+    <div class="col-6">
+      <h2>過去に利用した店舗</h2>
+      <img src="https://via.placeholder.com/150">
+      <img src="https://via.placeholder.com/150">
+    </div>
+  </div>
+</div>

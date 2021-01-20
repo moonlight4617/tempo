@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_secure_password
   mount_uploader :image, ImageUploader
 
+
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost

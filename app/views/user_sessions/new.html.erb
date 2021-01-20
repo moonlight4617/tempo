@@ -1,16 +1,16 @@
-<div class="text-center">
-  <form class="form-signin">
-    <h1 class="h3 mb-3 font-weight-normal">ログイン</h1>
-    <%= form_for(:user_session, url: {controller: 'user_sessions', action: 'create'}) do |f| %>
-    <div class="form-group row">
-      <%= f.label :email, class: "sr-only" %>Eメール
-      <%= f.text_field :email , id: "inputEmail", class: "form-control" %><br>
-      <%= f.label :password, class: "sr-only" %>パスワード
-      <%= f.text_field :password, id: "inputPassword", class: "form-control"%><br>
-      <%= f.check_box :remember_me, class: "checkbox mb-3"%>
-      <%= f.label :remember_me, "次回から自動でログインする" %><br>
-      <%= f.submit label="ログイン", class: "btn btn-lg btn-primary btn-block" %>
-      <% end %>
-    </div>
+<div class="form-signin">
+  <div class="py-5 text-center">
+    <h3 class="mb-3 font-weight-normal">ログイン</h3>
+  </div>
+  <%= form_for(:user_session, url: {controller: 'user_sessions', action: 'create'}) do |f| %>
+  <form class="form-group row">
+    <%= f.label :email, class: "sr-only" %>Eメール
+    <%= f.text_field :email , id: "inputEmail", class: "form-control" %><br>
+    <%= f.label :password, class: "sr-only" %>パスワード
+    <%= f.text_field :password, id: "inputPassword", class: "form-control"%><br>
+    <%= f.check_box :remember_me, class: "checkbox mb-3"%>
+    <%= f.label :remember_me, "次回から自動でログインする" %><br>
+    <%= f.submit label="ログイン", class: "btn btn-lg btn-primary btn-block" %>
+    <% end %>
   </form>
 </div>
