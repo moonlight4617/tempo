@@ -22,6 +22,9 @@ class UsersController < ApplicationController
   end
 
   def edit
+    if @user == nil
+      redirect_to root_path
+    end
   end
 
   def update

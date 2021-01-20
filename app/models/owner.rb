@@ -1,21 +1,20 @@
-class User < ApplicationRecord
-  attr_accessor :remember_token
+class Owner < ApplicationRecord
+  has_many :shops, dependent: :destroy
   has_secure_password
-  mount_uploader :image, ImageUploader
 
-  def User.digest(string)
+  def Owner.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
 
-  def User.new_token
+  def Owner.new_token
     SecureRandom.urlsafe_base64
   end
 
   def save_remember_digest
-    self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
+    self.remember_token = Owner.new_token
+    update_attribute(:remember_digest, Owner.digest(remember_token))
   end
 
   def authenticated?(remember_token)
@@ -25,5 +24,4 @@ class User < ApplicationRecord
   def forget_remember_digest
     update_attribute(:remember_digest, nil)
   end
-
 end

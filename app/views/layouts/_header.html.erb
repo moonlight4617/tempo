@@ -10,23 +10,30 @@
       <li class="nav-item">
         <a class="nav-link" href="#">店舗一覧<span class="sr-only">(current)</span></a>
       </li>
-      <% if session[:user_id]%>
-      <li class="nav-item">
-        <%= link_to "マイアカウント", u_show_path, class: "nav-link" %>
+      <li class="nav-item dropdown">
+        <%= link_to "ユーザーメニュー", "", class: "nav-link dropdown-toggle", id: "navbarDropdownMenuLink", role: "button", :data => {:toggle=>"dropdown"}, :aria => {:haspopup=>"true", :expanded=>"false"} %>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <% if session[:user_id] %>
+          <%= link_to "マイアカウント", u_show_path, class: "dropdown-item" %>
+          <%= link_to "ログアウト", user_logout_path, method: :delete, class: "dropdown-item" %>
+          <% else %>
+          <%= link_to "ログイン", user_login_path, class: "dropdown-item" %>
+          <%= link_to "新規会員登録", u_new_path, class: "dropdown-item" %>
+          <% end %>
+        </div>
       </li>
-      <li class="nav-item">
-        <%= link_to "ログアウト", user_logout_path, method: :delete, class: "nav-link" %>
-      </li>
-      <% else %>
-      <li class="nav-item">
-        <%= link_to "ログイン", user_login_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "新規会員登録", u_new_path, class: "nav-link" %>
-      </li>
-      <% end %>
-      <li class="nav-item">
-        <%= link_to "店舗オーナーの方はこちら", "#", class: "nav-link" %>
+
+      <li class="nav-item dropdown">
+        <%= link_to "オーナーメニュー", "", class: "nav-link dropdown-toggle", id: "navbarDropdownMenuLink", role: "button", :data => {:toggle=>"dropdown"}, :aria => {:haspopup=>"true", :expanded=>"false"} %>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <% if session[:owner_id] %>
+          <%= link_to "マイアカウント", o_show_path, class: "dropdown-item" %>
+          <%= link_to "ログアウト", owner_logout_path, method: :delete, class: "dropdown-item" %>
+          <% else %>
+          <%= link_to "ログイン", owner_login_path, class: "dropdown-item" %>
+          <%= link_to "新規会員登録", o_new_path, class: "dropdown-item" %>
+          <% end %>
+        </div>
       </li>
     </ul>
   </div>

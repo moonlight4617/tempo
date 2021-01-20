@@ -10,7 +10,7 @@ class UserSessionsController < ApplicationController
       params[:user_session][:remember_me] == 1 ? remember(user) : forget(user)
       redirect_to u_show_path
     else
-      render 'login_user'
+      render 'new'
     end
   end
 

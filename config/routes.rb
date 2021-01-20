@@ -1,9 +1,21 @@
 Rails.application.routes.draw do
-
   root to: 'home#top'
+  
+  #owner_sessions
+  get 'owners/login', to: 'owner_sessions#new', as: 'owner_login'
+  post 'owners/loggedin', to: 'owner_sessions#create', as: 'owner_logged_in'
+  post 'owners/logout', to: 'owner_sessions#logout', as: 'owner_logout'
+
+  #owners
+  get 'owners/new', to: 'owners#new', as: 'o_new'
+  get 'owners/show', to: 'owners#show', as: 'o_show'
+  get 'owners/edit', to: 'owners#edit', as: 'o_edit'
+  post 'owners/create', to: 'owners#create'
+  post 'owners/update', to: 'owners#update'
+  post 'owners/delete', to: 'owners#destory'
 
   #shops
-  get 'shops/new', to: 'shops#new'
+  get 'shops/new', to: 'shops#new', as: 's_new'
   get 'shops/:id', to: 'shops#show', as: 's_show'
   get 'shops/:id/edit', to: 'shops#edit', as: 's_edit'
   post 'shops/create', to: 'shops#create'

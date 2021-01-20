@@ -1,2 +1,5 @@
 <%= @shop.name %><br>
+<%= @owner.name %>
+<% if @shop.image? %>
 <%= image_tag @shop.image.url %>
+<% end %>
