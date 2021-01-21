@@ -8,7 +8,7 @@ class OwnerSessionsController < ApplicationController
     if owner && owner.authenticate(params[:owner_session][:password])
       session[:owner_id] = owner.id
       params[:owner_session][:remember_me] == 1 ? remember(owner) : forget(owner)
-      redirect_to o_show_path
+      redirect_back_or(owner_login_path)
     else
       render 'new'
     end

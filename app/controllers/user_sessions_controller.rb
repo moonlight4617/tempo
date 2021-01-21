@@ -8,7 +8,7 @@ class UserSessionsController < ApplicationController
     if user && user.authenticate(params[:user_session][:password])
       session[:user_id] = user.id
       params[:user_session][:remember_me] == 1 ? remember(user) : forget(user)
-      redirect_to u_show_path
+      redirect_back_or(user_login_path)
     else
       render 'new'
     end

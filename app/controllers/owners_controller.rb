@@ -1,5 +1,6 @@
 class OwnersController < ApplicationController
   before_action :set_owner, only: [:show, :edit, :update, :destroy]
+  before_action :before_login_owner, except: [:new, :create]
 
   def new
     @owner = Owner.new
@@ -16,16 +17,10 @@ class OwnersController < ApplicationController
   end
 
   def show
-    if @owner == nil
-      redirect_to root_path
-    end
     @shops = @owner.shops
   end
 
   def edit
-    if @owner == nil
-      redirect_to root_path
-    end
   end
 
   def update

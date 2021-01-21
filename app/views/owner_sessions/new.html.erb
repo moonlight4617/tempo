@@ -2,7 +2,7 @@
   <div class="py-5 text-center">
     <h3 class="mb-3 font-weight-normal">ログイン</h3>
   </div>
-  <%= form_for(:owener_session, url: {controller: 'owner_sessions', action: 'create'}) do |f| %>
+  <%= form_for(:owner_session, url: {controller: 'owner_sessions', action: 'create'}) do |f| %>
   <form class="form-group row">
     <%= f.label :email, class: "sr-only" %>Eメール
     <%= f.text_field :email , id: "inputEmail", class: "form-control" %><br>

@@ -1,6 +1,7 @@
 class ShopsController < ApplicationController
-  before_action :set_shop, only: [:show, :edit, :update, :destroy]
+  before_action :set_shop, only: [:show, :edit, :update, :destroy, :completely_destroy]
   before_action :set_owner, only: [:create, :show]
+  before_action :before_login_owner, only: [:new, :create, :edit, :update, :destroy]
   
   def index
     @shops = Shop.all
@@ -20,7 +21,7 @@ class ShopsController < ApplicationController
   end
 
   def show
-
+    @owner = @shop.owner
   end
 
   def edit
@@ -37,7 +38,7 @@ class ShopsController < ApplicationController
   def destroy
     @shop.del_flg = 1
     @shop.save
-    redirect_to root_path
+    redirect_to s_index_path
   end
 
   private

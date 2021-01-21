@@ -1,2 +1,28 @@
-<h1>Shops#edit</h1>
-<p>Find me in app/views/shops/edit.html.erb</p>
+<div class="container">
+  <h3 class="text-center">店舗編集</h3>
+  <div class="form-group">
+    <%= form_for(@shop, url: {controller: 'shops', action: 'update'}) do |f| %>
+    <%= f.label :name, "店舗名" %>
+    <%= f.text_field :name, class: "form-control" %><br>
+    <%= f.label :prefecture, "都道府県" %>
+    <%= f.text_field :prefecture, class: "form-control" %><br>
+    <%= f.label :city, "市町村" %>
+    <%= f.text_field :address, class: "form-control" %><br>
+    <%= f.label :address, "番地以下の住所" %>
+    <%= f.text_field :address, class: "form-control" %><br>
+    <%= f.label :tel, "電話番号" %>
+    <%= f.text_field :tel, class: "form-control" %><br>
+    <%= f.label :station, "最寄り駅" %>
+    <%= f.text_field :station, class: "form-control" %><br>
+    <%= f.label :capacity, "最大席数" %>
+    <%= f.text_field :capacity, class: "form-control" %><br>
+    <%= f.label :price, "基本料金/h" %>
+    <%= f.text_field :price, class: "form-control" %><br>
+    <%= f.label :content, "詳細説明" %>
+    <%= f.text_area :content, class: "form-control" %><br>
+    <%= f.label :image, "画像" %>
+    <%= f.file_field :image , class: "mb-4" %><br>
+    <%= f.submit label='登録', class: "btn btn-primary btn-lg btn-block" %>
+    <% end %>
+  </div>
+</div>

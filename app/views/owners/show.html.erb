@@ -1,2 +1,8 @@
-<h1>Owners#show</h1>
-<p>Find me in app/views/owners/show.html.erb</p>
+<h3>マイアカウント</h3>
+<% @shops.each do |shop| %>
+<%= shop.name %>
+<% if shop.image? %>
+<%= image_tag shop.image.url %><br>
+<% end %>
+<%= link_to "店舗詳細", s_show_path(shop) %>
+<% end %>
