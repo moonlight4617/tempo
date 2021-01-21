@@ -2,6 +2,7 @@ class ShopsController < ApplicationController
   before_action :set_shop, only: [:show, :edit, :update, :destroy, :completely_destroy]
   before_action :set_owner, only: [:create, :show]
   before_action :before_login_owner, only: [:new, :create, :edit, :update, :destroy]
+  before_action :correct_owner, only: [:edit, :update, :destroy]
   
   def index
     @shops = Shop.all
@@ -53,5 +54,13 @@ class ShopsController < ApplicationController
 
     def set_owner
       @owner = Owner.find_by(id: session[:owner_id])
+    end
+
+    def correct_owner
+      set_shop
+      set_owner
+      if @shop.owner != @owner
+        redirect_to root_path
+      end
     end
 end
