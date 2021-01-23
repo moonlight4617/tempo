@@ -1,0 +1,300 @@
+<table>
+  <thead>
+    <tr>
+      <th id="prev">&laquo;</th>
+      <th id="this month" colspan="6">予約カレンダー</th>
+      <th id="next">&raquo;</th>
+    </tr>
+    <tr id="week">
+      <th class="child" id="today"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>9:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+    <tr>
+      <td>10:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>11:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>12:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>13:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>14:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>15:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>16:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>17:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>18:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>19:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>20:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>21:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>22:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>23:00~</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+  const today = new Date();
+  const thisYear = today.getFullYear();
+  const thisMonth = today.getMonth();
+  const thisDay = today.getDate();
+  const prev = document.getElementById('prev');
+  let year = today.getFullYear();
+  let month = today.getMonth();
+  let day = today.getDate();
+  let lastDate = new Date(year, month + 1, 0).getDate();
+  let lastMonthLast = new Date(year, month, 0).getDate();
+  let week = document.getElementById('week');
+
+  function describeWeek() {
+    let fromToday = document.getElementById('today');
+    let endDate = day + 6;
+    let startDate = day;
+    let startMonth = month;
+    let endMonth = month;
+
+    console.log(`startDate ${startDate}`);
+    console.log(`endDate ${endDate}`);
+    console.log(`lastDate ${lastDate}`);
+    console.log(`day ${day}`);
+    console.log(`startMonth ${startMonth}`);
+    console.log(`endMonth ${endMonth}`);
+    console.log(`month ${month}`);
+    console.log(`year ${year}`);
+    // 月がまたいだら月日の表示を変える
+    // 開始日が月末をすぎた時の処理
+
+    // 終了日が月末日を超えた場合
+    if (endDate > lastDate) {
+      endMonth++;
+      if (endMonth > 11) {
+        year++;
+        endMonth = 0;
+      }
+      endDate -= lastDate;
+    }
+    // 開始日が月末日を超えた場合
+    if (startDate > lastDate) {
+      month++;
+      if (month > 11) {
+        month = 0;
+      }
+      startMonth = month;
+      day -= lastDate;
+      lastDate = new Date(year, month + 1, 0).getDate();
+      startDate = day;
+    }
+
+    // 開始日が前月末日より遡った場合
+    if (startDate < 1) {
+      startMonth--;
+      if (startMonth < 0) {
+        startMonth = 11;
+      }
+      startDate += lastMonthLast;
+    }
+    // 終了日が前月末日より遡った場合
+    if (endDate < 1) {
+      month--;
+      if (month < 0) {
+        year--;
+        month = 11;
+      }
+      endMonth = month;
+      day += lastMonthLast;
+      endDate = day + 6;
+      lastDate = new Date(year, month + 1, 0).getDate();
+      lastMonthLast = new Date(year, month, 0).getDate();
+    }
+
+    fromToday.textContent = `${startMonth + 1}/${startDate} - ${endMonth + 1}/${endDate}`;
+  }
+
+  // 日付の記述
+  function describeDate() {
+    // 本日以前の日付分は表示させないように<<を削除する
+    if (year <= thisYear && month <= thisMonth && day <= thisDay) {
+      prev.removeAttribute('id');
+      prev.innerHTML = '<th>&laquo;</th>';
+    }
+
+    weekDate = [];
+    for (let i = day; i < day + 7; i++) {
+      weekDate.push(i);
+    }
+
+    weekDate.forEach(date => {
+      const th = document.createElement('th');
+      if (date > lastDate) {
+        date -= lastDate;
+      }
+      if (date < 1) {
+        date += lastMonthLast;
+      }
+      th.textContent = date;
+      th.className = "child"
+      week.appendChild(th);
+    });
+  }
+
+  function createCalendar() {
+    describeDate();
+    describeWeek();
+  }
+
+  createCalendar();
+
+  function crearCalendar() {
+    const child = document.getElementsByClassName('child');
+    for (let i = 0; i < 7; i++) {
+      week.removeChild(child[1]);
+    }
+  }
+
+  document.getElementById('next').addEventListener('click', () => {
+    day += 7;
+    // prev.innerHTML = '<th>&laquo;</th>';
+    prev.setAttribute('id', 'prev');
+    crearCalendar();
+    createCalendar();
+  });
+
+  if (prev.ElementId == 'prev') {
+    document.getElementById('prev').addEventListener('click', () => {
+      day -= 7;
+      crearCalendar();
+      createCalendar();
+    });
+  }
+</script>

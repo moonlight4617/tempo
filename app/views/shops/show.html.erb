@@ -9,7 +9,11 @@
 <p>席数：<%= @shop.capacity %></p>
 <p>基本料金：<%= @shop.price %></p>
 <p>紹介文：<%= @shop.content %></p>
+<% if @shop.owner == Owner.find_by(id: session[:owner_id]) %>
 <%= link_to "店舗情報編集", s_edit_path %>
-<%= link_to "店舗一覧へ戻る", s_index_path %><br>
-
 <%= link_to "店舗を削除する", s_destroy_path, method: :delete %>
+<% else %>
+<%= link_to "オーナーさんに相談する", "#" %>
+<%= link_to "予約日時選択", c_new_path %>
+<% end %>
+<%= link_to "店舗一覧へ戻る", s_index_path %><br>

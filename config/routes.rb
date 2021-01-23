@@ -23,6 +23,14 @@ Rails.application.routes.draw do
   patch 'shops/:id/update', to: 'shops#update'
   delete 'shops/:id/delete', to: 'shops#destroy', as: 's_destroy'
 
+  #calendars
+  get 'shops/:id/calendar/new', to: 'calendars#new', as: 'c_new'
+  get 'shops/:id/calendar/:id', to: 'calendars#show', as: 'c_show'
+  get 'shops/:id/calendar/:id/edit', to: 'calendars#edit', as: 'c_edit'
+  post 'shops/:id/calendar/create', to: 'calendars#create', as: 'c_create'
+  patch 'shops/:id/calendar/:id/update', to: 'calendars#update', as: 'c_update'
+  delete 'shops/:id/calendar/:id/delete', to: 'calendars#destroy', as: 'c_destroy'
+
   #users
   get 'users/new', to: 'users#new', as: 'u_new'
   get 'users/show', to: 'users#show', as: 'u_show'
