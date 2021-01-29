@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'shops/:id', to: 'shops#show', as: 's_show'
   get 'shops/:id/edit', to: 'shops#edit', as: 's_edit'
   post 'shops/create', to: 'shops#create'
+  post 'shops/zip', to: 'shops#zip'
   patch 'shops/:id/update', to: 'shops#update'
   delete 'shops/:id/delete', to: 'shops#destroy', as: 's_destroy'
 

@@ -42,10 +42,14 @@ class ShopsController < ApplicationController
     redirect_to s_index_path
   end
 
+  def zip
+    p params
+  end
+
   private
 
     def shop_params
-      params.require(:shop).permit(:name, :prefecture, :city, :address, :tel, :station, :capacity, :image, :price, :content)
+      params.require(:shop).permit(:name, :prefecture, :city, :address, :tel, :station, :capacity, :image, :price, :content, :zip_code)
     end
 
     def set_shop

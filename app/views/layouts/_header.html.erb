@@ -10,6 +10,7 @@
       <li class="nav-item">
         <%= link_to "店舗一覧", s_index_path, class: 'nav-link' %><span class="sr-only">(current)</span></a>
       </li>
+      <% if session[:owner_id] == nil %>
       <li class="nav-item dropdown">
         <%= link_to "ユーザーメニュー", "", class: "nav-link dropdown-toggle", id: "navbarDropdownMenuLink", role: "button", :data => {:toggle=>"dropdown"}, :aria => {:haspopup=>"true", :expanded=>"false"} %>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -22,7 +23,9 @@
           <% end %>
         </div>
       </li>
+      <% end %>
 
+      <% if session[:user_id] == nil %>
       <li class="nav-item dropdown">
         <%= link_to "オーナーメニュー", "", class: "nav-link dropdown-toggle", id: "navbarDropdownMenuLink", role: "button", :data => {:toggle=>"dropdown"}, :aria => {:haspopup=>"true", :expanded=>"false"} %>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -35,6 +38,7 @@
           <% end %>
         </div>
       </li>
+      <% end %>
     </ul>
   </div>
 </nav>

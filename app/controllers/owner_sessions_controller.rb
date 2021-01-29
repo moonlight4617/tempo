@@ -7,8 +7,11 @@ class OwnerSessionsController < ApplicationController
     owner = Owner.find_by(email: params[:owner_session][:email])
     if owner && owner.authenticate(params[:owner_session][:password])
       session[:owner_id] = owner.id
+      if session[:user_id]
+        session[:user_id].delete
+      end
       params[:owner_session][:remember_me] == 1 ? remember(owner) : forget(owner)
-      redirect_back_or(owner_login_path)
+      redirect_back_or(o_show_path)
     else
       render 'new'
     end

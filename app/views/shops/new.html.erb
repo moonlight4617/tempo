@@ -4,12 +4,15 @@
     <%= form_for(@shop, url: {controller: 'shops', action: 'create'}) do |f| %>
     <%= f.label :name, "店舗名" %>
     <%= f.text_field :name, class: "form-control" %><br>
+    <%= f.label :zip_code, "郵便番号" %>
+    <%= f.text_field :zip_code, id:'zip_code'%>
+    <button type="button" id='search'>住所自動入力</button><br>
     <%= f.label :prefecture, "都道府県" %>
-    <%= f.text_field :prefecture, class: "form-control" %><br>
+    <%= f.text_field :prefecture, class: "form-control", id: "pref_name" %><br>
     <%= f.label :city, "市町村" %>
-    <%= f.text_field :address, class: "form-control" %><br>
+    <%= f.text_field :city, class: "form-control", id: "city" %><br>
     <%= f.label :address, "番地以下の住所" %>
-    <%= f.text_field :address, class: "form-control" %><br>
+    <%= f.text_field :address, class: "form-control", id: "other" %><br>
     <%= f.label :tel, "電話番号" %>
     <%= f.text_field :tel, class: "form-control" %><br>
     <%= f.label :station, "最寄り駅" %>
@@ -26,3 +29,39 @@
     <% end %>
   </div>
 </div>
+
+<script>
+  $(function() {
+    $("#search").click(function(e) {
+      e.preventDefault();
+      var param = {
+        zipcode: $('#zip_code').val()
+      }
+      var send_url = "http://zipcloud.ibsnet.co.jp/api/search";
+      $.ajax({
+        type: "GET",
+        cache: false,
+        data: param,
+        url: send_url,
+        dataType: "jsonp",
+        success: function(res) {
+          if (res.status == 200) {
+            var html = '';
+            // for (var i = 0; i < res.results.length; i++) {
+            var result = res.results[0];
+            $('#pref_name').val(result.address1);
+            $('#city').val(result.address2);
+            $('#other').val(result.address3);
+            // }
+            console.log(res.results);
+          } else {
+            $('#zip_result').html(res.message);
+          }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log(XMLHttpRequest);
+        }
+      });
+    });
+  });
+</script>

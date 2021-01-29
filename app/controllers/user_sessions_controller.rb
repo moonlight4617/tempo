@@ -7,8 +7,11 @@ class UserSessionsController < ApplicationController
     user = User.find_by(email: params[:user_session][:email])
     if user && user.authenticate(params[:user_session][:password])
       session[:user_id] = user.id
+      if session[:owner_id]
+        session[:owner_id].delete
+      end
       params[:user_session][:remember_me] == 1 ? remember(user) : forget(user)
-      redirect_back_or(user_login_path)
+      redirect_back_or(s_index_path)
     else
       render 'new'
     end
