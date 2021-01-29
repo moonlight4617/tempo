@@ -7,7 +7,7 @@
       <th><button id="next" name="move" controller="calendars" action="move">次の週へ</button></th>
     </tr>
     <tr id="week" class="thead-light">
-      <th class="child" id="today"><%= @day if @day %></th>
+      <th class="child" id="today"><%= @day %></th>
       <th class="child" id="sun"></th>
       <th class="child" id="mon"></th>
       <th class="child" id="tue"></th>
@@ -174,6 +174,7 @@
 <%= f.submit label="申し込む"%>
 <%= link_to "メッセージを送る", "#" %>
 <% end %>
+<%=@day%>
 
 <script>
   const today = new Date();
@@ -183,10 +184,7 @@
   const Week = ["日", "月", "火", "水", "木", "金", "土"];
   let year = today.getFullYear();
   let month = today.getMonth();
-  let day = today.getDate();
-  if (document.getElementById('today').value != null) {
-    let day = new Date(year, month, document.getElementById('today').value);
-  }
+  let day = new Date(year, month, document.getElementById('today').value);
   let lastDate = new Date(year, month + 1, 0).getDate();
   let lastMonthLast = new Date(year, month, 0).getDate();
   let week = document.getElementById('week');
