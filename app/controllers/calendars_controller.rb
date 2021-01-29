@@ -22,7 +22,7 @@ class CalendarsController < ApplicationController
 
   def move
     @day = params[:move]
-    p params[:move]
+    redirect_to c_new_path
   end
 
   def show
