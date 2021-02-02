@@ -2,6 +2,7 @@ class User < ApplicationRecord
   attr_accessor :remember_token
   has_secure_password
   mount_uploader :image, ImageUploader
+  has_many :calendars
 
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

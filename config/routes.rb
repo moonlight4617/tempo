@@ -25,11 +25,15 @@ Rails.application.routes.draw do
   delete 'shops/:id/delete', to: 'shops#destroy', as: 's_destroy'
 
   #calendars
+  get 'shops/calendar/index', to: 'calendars#index', as: 'c_index'
+  # get 'shops/:id/calendar/demo', to: 'calendars#demo', as: 'c_demo'
   get 'shops/:id/calendar/new', to: 'calendars#new', as: 'c_new'
-  get 'shops/:id/calendar/:id', to: 'calendars#show', as: 'c_show'
+  get 'shops/:id/calendar/next', to: 'calendars#next', as: 'c_next'
+  get 'shops/:id/calendar/prev', to: 'calendars#prev', as: 'c_prev'
+  get 'shops/:id/calendar/s_index', to: 'calendars#s_index', as: 'c_s_index'
   get 'shops/:id/calendar/:id/edit', to: 'calendars#edit', as: 'c_edit'
-  get 'shops/:id/calendar/move', to: 'calendars#move', as: 'c_move'
   post 'shops/:id/calendar/create', to: 'calendars#create', as: 'c_create'
+  # post 'shops/:id/calendar/demo_create', to: 'calendars#demo_c', as: 'demo_c_create'
   patch 'shops/:id/calendar/:id/update', to: 'calendars#update', as: 'c_update'
   delete 'shops/:id/calendar/:id/delete', to: 'calendars#destroy', as: 'c_destroy'
 

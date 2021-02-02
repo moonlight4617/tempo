@@ -11,14 +11,18 @@
       <i class="far fa-star"></i><br>
       Eメール：<%= @user.email %><br>
       <p>口コミ評価：口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文</p>
-      <%= link_to "登録情報編集", u_edit_path %>
+      <%= link_to "登録情報編集", u_edit_path %><br>
+      <%= link_to "予約一覧", c_index_path%>
     </div>
   </div>
   <div class="row">
     <div class="col-6">
       <h2>現在申込中の店舗</h2>
-      <img src="https://via.placeholder.com/150">
-      <img src="https://via.placeholder.com/150">
+      <% if @calendars = Calendar.where(user_id: session[:user_id]).limit(1) %>
+      <% @calendars.each do |cal| %>
+      <%= link_to image_tag(cal.shop.image.url), s_show_path(cal.shop)%>
+      <% end %>
+      <% end %>
     </div>
     <div class="col-6">
       <h2>過去に利用した店舗</h2>

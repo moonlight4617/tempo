@@ -1,31 +1,129 @@
 class CalendarsController < ApplicationController
-  before_action :set_shop
-  def new
-    @calendar = @shop.calendars.build
+  before_action :set_shop, except:[:index]
+
+  def index
+    @calendars = Calendar.where(user_id: session[:user_id])
   end
 
-  def create
-    @calendar = @shop.calendars.create
+  def new
+    @today = Date.today
+    @year = @today.year
+    @year_month = "#{@today.year} / #{@today.month}"
+    @week = []
+    7.times do |i|
+      w = @today + i
+      @week.push(w)
+    end
 
-    if params[:hour]
-      p params[:hour]
-      params[:hour].each do |hour|
-        dayhour = hour[1].to_s.split
-        p dayhour[0]
-        p dayhour[1]
-        p dayhour[2]
-        p dayhour[3]
-        p dayhour[7]
+    @able_time = [9, 10, 11, 12, 13, 14, 15, 16]
+    @t = []
+    @able_time.each do |t|
+      @week.each do |w|
+        dt = Time.zone.local(@year, @today.month, w.mday, t)
+        @t.push(dt)
       end
     end
   end
 
-  def move
-    @day = params[:move]
-    redirect_to c_new_path
+  def create
+    params[:calendar][:rent_date].each do |reserve|
+      @calendar = @shop.calendars.create(
+            rent_date: reserve.to_date,
+            start_time: reserve.to_time,
+            user_id: session[:user_id]
+          )
+    end
+    redirect_to c_index_path
+
   end
 
-  def show
+  # def new
+  #   @calendar = @shop.calendars.build
+  # end
+
+  # def create
+  #     params[:hour][:day].each do |hour|
+  #       p hour
+  #       reserve = hour.split
+  #       p reserve[0]
+  #       d = Time.at(reserve[0].to_i)
+  #       p d
+  #       a = d.to_s
+  #       b = a.split
+  #       p b[0]
+
+  #       if @calendar = @shop.calendars.create(
+  #         rent_date: b[0],
+  #         start_time: reserve[1]
+  #       )
+        # @calendar = @shop.calendars.create(
+          # res_date = []
+          # res_date.push(reserve[3], reserve[1], reserve[2])
+          # join_date = res_date.join(',')
+          
+          # @calendar = @shop.calendars.create(
+          #   rent
+
+          # p res_date
+          # rent_date: [:hour],
+          # )
+  #       redirect_to c_show_path
+  #       end
+  #     end
+
+  # end
+
+  def next
+    p params
+    p params[:calendar]
+    today = params[:calendar].to_date
+    @today = today + 7
+    @year = @today.year
+    @year_month = "#{@today.year} / #{@today.month}"
+    @week = []
+    7.times do |i|
+      w = @today + i
+      @week.push(w)
+    end
+
+    @able_time = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"]
+
+    @t = []
+    @able_time.each do |t|
+      @week.each do |w|
+        dt = Time.zone.local(@year, @today.month, w.mday, t)
+        @t.push(dt)
+      end
+    end
+  end
+
+  def prev
+    p params
+    p params[:calendar]
+    today = params[:calendar].to_date
+    @today = today - 7
+    @year = @today.year
+    @year_month = "#{@today.year} / #{@today.month}"
+    @week = []
+    7.times do |i|
+      w = @today + i
+      @week.push(w)
+    end
+
+    @able_time = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"]
+
+    @t = []
+    @able_time.each do |t|
+      @week.each do |w|
+        dt = Time.zone.local(@year, @today.month, w.mday, t)
+        @t.push(dt)
+      end
+    end
+    render 'next'
+  end
+
+  def s_index
+    @calendars = @shop.calendars.where(user_id: session[:user_id])
   end
 
   def edit
@@ -38,6 +136,6 @@ class CalendarsController < ApplicationController
     end
 
     def cal_params
-      params.require(:calendar).permit(:hour)
+      params.require(:calendar).permit(:hour, :rent_date[], :date, :calendar)
     end
 end

@@ -20,11 +20,11 @@
       </tr>
     </thead>
     <tbody>
-      <%= form_for(:calendar, url:{controller: 'calendars', action: 'create'}) do |f| %>
 
       <tr class="thead-light">
         <th></th>
 
+        <%= form_for(:calendar, url:{controller: 'calendars', action: 'create'}) do |f| %>
         <% @week.each do |day| %>
         <th><%= day.mday %><%= "(" + %w[日 月 火 水 木 金 土][day.wday] + ")" %></th>
         <% end %>
@@ -32,7 +32,7 @@
 
       <% @able_time.each do |hour| %>
       <tr>
-        <th><%= hour %>:00</th>
+        <th><%= hour %></th>
         <% 7.times do %>
         <% h = @t.slice!(0)%>
         <td><%= f.check_box :rent_date, {multiple: true}, h, nil %></td>

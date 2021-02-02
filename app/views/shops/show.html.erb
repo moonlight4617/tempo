@@ -16,6 +16,9 @@
   <% else %>
   <%= link_to "オーナーさんに相談する", "#" %>
   <%= link_to "予約日時選択", c_new_path %>
+  <% if Calendar.find_by(shop_id: @shop.id, user_id: session[:user_id]) != nil %>
+  <%= link_to "予約申込一覧", c_s_index_path(@shop)%>
+  <% end %>
   <% end %>
   <%= link_to "店舗一覧へ戻る", s_index_path %><br>
 </div>

@@ -16,6 +16,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <% if session[:user_id] %>
           <%= link_to "マイアカウント", u_show_path, class: "dropdown-item" %>
+          <%= link_to "予約一覧", c_index_path, class: "dropdown-item" %>
           <%= link_to "ログアウト", user_logout_path, method: :delete, class: "dropdown-item" %>
           <% else %>
           <%= link_to "ログイン", user_login_path, class: "dropdown-item" %>
