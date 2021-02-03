@@ -1,3 +1,7 @@
+<%= @calendars.each do |cal|%>
+<%= cal.start_time %>
+
+<% end %>
 <div class="table">
   <table>
     <thead>
@@ -35,6 +39,9 @@
         <th><%= hour %>:00</th>
         <% 7.times do %>
         <% h = @t.slice!(0)%>
+        <% @calendars.each do |res| %>
+        <% res.start_time.to_time %>
+        <% end %>
         <td><%= f.check_box :rent_date, {multiple: true}, h, nil %></td>
         <% end %>
       </tr>

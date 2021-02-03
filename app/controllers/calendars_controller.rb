@@ -23,6 +23,11 @@ class CalendarsController < ApplicationController
         @t.push(dt)
       end
     end
+
+    # @calendars.each do |res|
+    #   res.to_date
+    # end
+    @calendars = @shop.calendars.where(shop_id: params[:id])
   end
 
   def create
@@ -34,7 +39,6 @@ class CalendarsController < ApplicationController
           )
     end
     redirect_to c_index_path
-
   end
 
   # def new
@@ -127,6 +131,10 @@ class CalendarsController < ApplicationController
   end
 
   def edit
+  end
+
+  def owner_new
+    
   end
 
   private

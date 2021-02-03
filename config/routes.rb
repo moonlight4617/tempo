@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'shops/new', to: 'shops#new', as: 's_new'
   get 'shops/:id', to: 'shops#show', as: 's_show'
   get 'shops/:id/edit', to: 'shops#edit', as: 's_edit'
+  get 'shops/:id/set_business_time', to: 'shops#set_business_time', as: 's_set_business_time'
   post 'shops/create', to: 'shops#create'
   post 'shops/zip', to: 'shops#zip'
   patch 'shops/:id/update', to: 'shops#update'

@@ -13,7 +13,7 @@ class ShopsController < ApplicationController
   end
 
   def create
-    @shop = @owner.shops.create(shop_params)
+    @shop = @owner.shops.create(shop_params) 
     if @shop.save
       redirect_to s_show_path(@shop)
     else
@@ -44,6 +44,14 @@ class ShopsController < ApplicationController
 
   def zip
     p params
+  end
+
+  def set_business_time
+
+  end
+
+  def create_business_time
+
   end
 
   private
