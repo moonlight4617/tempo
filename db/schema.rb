@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_160455) do
+ActiveRecord::Schema.define(version: 2021_02_04_043426) do
 
   create_table "calendars", force: :cascade do |t|
-    t.time "start_time"
-    t.time "end_time"
-    t.date "rent_date"
+    t.string "start_time"
+    t.string "end_time"
+    t.string "rent_date"
     t.integer "shop_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 2021_02_02_160455) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.integer "zip_code"
-    t.integer "start_time"
-    t.integer "end_time"
+    t.string "start_time"
+    t.string "end_time"
     t.text "business_time"
   end
 

@@ -18,6 +18,7 @@
   <div class="row">
     <div class="col-6">
       <h2>現在申込中の店舗</h2>
+      <%= link_to "予約一覧", c_index_path %>
       <% if @calendars = Calendar.where(user_id: session[:user_id]).limit(1) %>
       <% @calendars.each do |cal| %>
       <%= link_to image_tag(cal.shop.image.url), s_show_path(cal.shop)%>

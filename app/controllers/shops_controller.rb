@@ -13,7 +13,11 @@ class ShopsController < ApplicationController
   end
 
   def create
+    set_business_time
+    binding.pry
+    
     @shop = @owner.shops.create(shop_params) 
+    @shop.business_time = business_time
     if @shop.save
       redirect_to s_show_path(@shop)
     else
@@ -29,6 +33,8 @@ class ShopsController < ApplicationController
   end
 
   def update
+    set_business_time
+   binding.pry
     if @shop.update(shop_params)
       redirect_to s_show_path(@shop)
     else
@@ -51,13 +57,13 @@ class ShopsController < ApplicationController
   end
 
   def create_business_time
-
+    
   end
 
   private
 
     def shop_params
-      params.require(:shop).permit(:name, :prefecture, :city, :address, :tel, :station, :capacity, :image, :price, :content, :zip_code)
+      params.require(:shop).permit(:name, :prefecture, :city, :address, :tel, :station, :capacity, :image, :price, :content, :zip_code, :start_time, :end_time)
     end
 
     def set_shop
@@ -74,5 +80,17 @@ class ShopsController < ApplicationController
       if @shop.owner != @owner
         redirect_to root_path
       end
+    end
+
+    def set_business_time
+      s_time = params[:shop][:start_time]
+      e_time = params[:shop][:end_time]
+      @business_time = []  
+      i = s_time
+      while i <= e_time do
+        business_time.push(i)
+        i ++
+      end     
+      @shop.business_time = business_time
     end
 end

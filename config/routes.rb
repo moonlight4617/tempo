@@ -23,10 +23,11 @@ Rails.application.routes.draw do
   post 'shops/create', to: 'shops#create'
   post 'shops/zip', to: 'shops#zip'
   patch 'shops/:id/update', to: 'shops#update'
+  patch 'shops/:id/create_business_time', to: 'shops#update'
   delete 'shops/:id/delete', to: 'shops#destroy', as: 's_destroy'
 
   #calendars
-  get 'shops/calendar/index', to: 'calendars#index', as: 'c_index'
+  get 'shops/calendar/index', to: 'calendars#index_for_user', as: 'c_index'
   # get 'shops/:id/calendar/demo', to: 'calendars#demo', as: 'c_demo'
   get 'shops/:id/calendar/new', to: 'calendars#new', as: 'c_new'
   get 'shops/:id/calendar/next', to: 'calendars#next', as: 'c_next'

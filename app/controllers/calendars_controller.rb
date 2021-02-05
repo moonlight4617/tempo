@@ -1,128 +1,45 @@
 class CalendarsController < ApplicationController
-  before_action :set_shop, except:[:index]
+  before_action :set_shop, except: :index_for_user
 
-  def index
+  def index_for_user
     @calendars = Calendar.where(user_id: session[:user_id])
   end
 
   def new
+    @calendars = @shop.calendars.where(shop_id: params[:id])
     @today = Date.today
     @year = @today.year
     @year_month = "#{@today.year} / #{@today.month}"
-    @week = []
-    7.times do |i|
-      w = @today + i
-      @week.push(w)
-    end
-
-    @able_time = [9, 10, 11, 12, 13, 14, 15, 16]
-    @t = []
-    @able_time.each do |t|
-      @week.each do |w|
-        dt = Time.zone.local(@year, @today.month, w.mday, t)
-        @t.push(dt)
-      end
-    end
-
-    # @calendars.each do |res|
-    #   res.to_date
-    # end
-    @calendars = @shop.calendars.where(shop_id: params[:id])
+    set_calendar
   end
+
 
   def create
     params[:calendar][:rent_date].each do |reserve|
+      res = reserve.split
       @calendar = @shop.calendars.create(
-            rent_date: reserve.to_date,
-            start_time: reserve.to_time,
+            rent_date: res[0],
+            start_time: res[1],            
             user_id: session[:user_id]
           )
     end
     redirect_to c_index_path
   end
 
-  # def new
-  #   @calendar = @shop.calendars.build
-  # end
-
-  # def create
-  #     params[:hour][:day].each do |hour|
-  #       p hour
-  #       reserve = hour.split
-  #       p reserve[0]
-  #       d = Time.at(reserve[0].to_i)
-  #       p d
-  #       a = d.to_s
-  #       b = a.split
-  #       p b[0]
-
-  #       if @calendar = @shop.calendars.create(
-  #         rent_date: b[0],
-  #         start_time: reserve[1]
-  #       )
-        # @calendar = @shop.calendars.create(
-          # res_date = []
-          # res_date.push(reserve[3], reserve[1], reserve[2])
-          # join_date = res_date.join(',')
-          
-          # @calendar = @shop.calendars.create(
-          #   rent
-
-          # p res_date
-          # rent_date: [:hour],
-          # )
-  #       redirect_to c_show_path
-  #       end
-  #     end
-
-  # end
-
   def next
-    p params
-    p params[:calendar]
     today = params[:calendar].to_date
     @today = today + 7
     @year = @today.year
     @year_month = "#{@today.year} / #{@today.month}"
-    @week = []
-    7.times do |i|
-      w = @today + i
-      @week.push(w)
-    end
-
-    @able_time = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"]
-
-    @t = []
-    @able_time.each do |t|
-      @week.each do |w|
-        dt = Time.zone.local(@year, @today.month, w.mday, t)
-        @t.push(dt)
-      end
-    end
+    set_calendar
   end
 
   def prev
-    p params
-    p params[:calendar]
     today = params[:calendar].to_date
     @today = today - 7
     @year = @today.year
     @year_month = "#{@today.year} / #{@today.month}"
-    @week = []
-    7.times do |i|
-      w = @today + i
-      @week.push(w)
-    end
-
-    @able_time = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"]
-
-    @t = []
-    @able_time.each do |t|
-      @week.each do |w|
-        dt = Time.zone.local(@year, @today.month, w.mday, t)
-        @t.push(dt)
-      end
-    end
+    set_calendar
     render 'next'
   end
 
@@ -145,5 +62,34 @@ class CalendarsController < ApplicationController
 
     def cal_params
       params.require(:calendar).permit(:hour, :rent_date[], :date, :calendar)
+    end
+
+    def set_calendar
+        @week = []
+      7.times do |i|
+        w = @today + i
+        @week.push(w)
+      end
+
+      rent_dayTimes = Calendar.where(shop_id: params[:id]).pluck(:rent_date, :start_time)
+      @able_time = [9, 10, 11, 12, 13, 14, 15, 16]
+      @t = []
+      @rentDays = []
+
+      rent_dayTimes.each do |dayTime|
+        s_rent = "#{dayTime[0]}, #{dayTime[1]}"
+        @rentDays.push(s_rent)
+      end
+      
+      @able_time.each do |t|
+        @week.each do |w|
+          dt = Time.zone.local(@year, @today.month, w.mday, t)
+          calendar_date = dt.to_s
+          c_date = calendar_date.split
+          c_dateTime = c_date[0] + ", " + c_date[1]
+          # @t.map {|day| if rent_days.include?(day)? day = "x"}
+          @t.push(c_dateTime)
+        end
+      end
     end
 end
