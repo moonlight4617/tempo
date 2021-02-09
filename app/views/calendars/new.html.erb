@@ -1,24 +1,21 @@
 <div class="table">
+  <%= form_for(:calendar, url:{controller: 'calendars', action: 'create'}) do |f| %>
   <table>
     <thead>
       <tr class="thead-dark">
         <th>
-          <%= form_with(url: c_prev_path , method: :get, local: true) do |f| %>
-          <%= f.hidden_field :calendar, value: @today %>
-          <%= f.submit "前の週へ"%>
+          <% if @t.first.to_date > Date.today%>
+          <%= f.submit "前の週へ", :name => 'prev' %>
           <% end %>
         </th>
         <th colspan=6 class="text-center"><%= @year_month %></th>
         <th>
-          <%= form_with(url: c_next_path , method: :get, local: true) do |f| %>
-          <%= f.hidden_field :calendar, value: @today %>
-          <%= f.submit "次の週へ"%>
-          <% end %>
+          <%= f.hidden_field :day, value: @today %>
+          <%= f.submit "次の週へ", :name => 'next'%>
         </th>
       </tr>
     </thead>
     <tbody>
-      <%= form_for(:calendar, url:{controller: 'calendars', action: 'create'}) do |f| %>
 
       <tr class="thead-light">
         <th></th>
@@ -45,5 +42,6 @@
     </tbody>
   </table>
   <%= f.submit "申し込む" %>
+  <% end%>
+  <%= link_to "店舗に質問を送る", ch_show_path %>
 </div>
-<% end%>

@@ -4,6 +4,12 @@
 <% if shop.image? %>
 <%= image_tag shop.image.url %><br>
 <% end %>
+<% shop.calendars.each do |cal|%>
+<ul>
+  <li>日付：<%= cal.rent_date %>時間：<%= cal.start_time %></li>
+</ul>
+<% end%>
 <%= link_to "店舗詳細", s_show_path(shop) %>
+<%= link_to "店舗情報編集", s_edit_path(shop) %>
 <%= link_to "店舗新規登録", s_new_path %>
 <% end %>

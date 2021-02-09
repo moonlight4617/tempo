@@ -13,9 +13,7 @@ class ShopsController < ApplicationController
   end
 
   def create
-    set_business_time
-    binding.pry
-    
+    set_business_time    
     @shop = @owner.shops.create(shop_params) 
     @shop.business_time = business_time
     if @shop.save
@@ -34,7 +32,6 @@ class ShopsController < ApplicationController
 
   def update
     set_business_time
-   binding.pry
     if @shop.update(shop_params)
       redirect_to s_show_path(@shop)
     else
@@ -83,13 +80,12 @@ class ShopsController < ApplicationController
     end
 
     def set_business_time
-      s_time = params[:shop][:start_time]
-      e_time = params[:shop][:end_time]
-      @business_time = []  
-      i = s_time
-      while i <= e_time do
-        business_time.push(i)
-        i ++
+      s_time = params[:shop][:start_time].to_i
+      e_time = params[:shop][:end_time].to_i
+      business_time = []  
+      while s_time <= e_time do
+        business_time.push(s_time)
+        s_time += 1
       end     
       @shop.business_time = business_time
     end
