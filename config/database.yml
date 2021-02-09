@@ -21,7 +21,18 @@ test:
   database: db/test.sqlite3
 
 production:
+<<<<<<< HEAD
   <<: *default
   database: tempo_production
   username: root
 　password:
+=======
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: mysql
+  pool: 5
+  username: root
+  password: 
+  host: localhost
+>>>>>>> addb7b5c2288a501eff08d626cf27dc965daa6fe

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'owners/login', to: 'owner_sessions#new', as: 'owner_login'
   post 'owners/loggedin', to: 'owner_sessions#create', as: 'owner_logged_in'
   delete 'owners/logout', to: 'owner_sessions#logout', as: 'owner_logout'
-
+  
   #owners
   get 'owners/new', to: 'owners#new', as: 'o_new'
   get 'owners/show', to: 'owners#show', as: 'o_show'
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   post 'owners/create', to: 'owners#create'
   post 'owners/update', to: 'owners#update'
   post 'owners/delete', to: 'owners#destory'
-
+  
   #shops
   get 'shops', to: 'shops#index', as: 's_index'
   get 'shops/new', to: 'shops#new', as: 's_new'
@@ -25,19 +25,30 @@ Rails.application.routes.draw do
   patch 'shops/:id/update', to: 'shops#update'
   patch 'shops/:id/create_business_time', to: 'shops#update'
   delete 'shops/:id/delete', to: 'shops#destroy', as: 's_destroy'
+  
+  # chats
+  get 'shops/:id/chats/new', to: 'chats#new', as: 'ch_new' 
+  get 'shops/:id/chats/', to: 'chats#show', as: 'ch_show' 
+  post 'shops/:id/chats/post', to: 'chats#create', as: 'ch_c' 
+  delete 'shops/:id/chats/:id/delete', to: 'chats#destroy', as: 'ch_d' 
+  
+  # messages
+  get 'shops/:id/messages/index', to: 'messages#index', as: 'm_index' 
+  get 'shops/:id/messages/new', to: 'messages#new', as: 'm_new' 
+  get 'shops/:id/messages/:id', to: 'messages#show', as: 'm_show' 
+  post 'shops/:id/messages/new', to: 'messages#create', as: 'm_create' 
+  delete 'shops/:id/messages/:id/delete', to: 'messages#destroy', as: 'm_destroy' 
 
   #calendars
-  get 'shops/calendar/index', to: 'calendars#index_for_user', as: 'c_index'
-  # get 'shops/:id/calendar/demo', to: 'calendars#demo', as: 'c_demo'
-  get 'shops/:id/calendar/new', to: 'calendars#new', as: 'c_new'
-  get 'shops/:id/calendar/next', to: 'calendars#next', as: 'c_next'
-  get 'shops/:id/calendar/prev', to: 'calendars#prev', as: 'c_prev'
-  get 'shops/:id/calendar/s_index', to: 'calendars#s_index', as: 'c_s_index'
-  get 'shops/:id/calendar/:id/edit', to: 'calendars#edit', as: 'c_edit'
-  post 'shops/:id/calendar/create', to: 'calendars#create', as: 'c_create'
-  # post 'shops/:id/calendar/demo_create', to: 'calendars#demo_c', as: 'demo_c_create'
-  patch 'shops/:id/calendar/:id/update', to: 'calendars#update', as: 'c_update'
-  delete 'shops/:id/calendar/:id/delete', to: 'calendars#destroy', as: 'c_destroy'
+  get 'shops/calendars/index', to: 'calendars#index_for_user', as: 'c_index'
+  get 'shops/:id/calendars/new', to: 'calendars#new', as: 'c_new'
+  get 'shops/:id/calendars/next', to: 'calendars#next', as: 'c_next'
+  get 'shops/:id/calendars/prev', to: 'calendars#prev', as: 'c_prev'
+  get 'shops/:id/calendars/s_index', to: 'calendars#s_index', as: 'c_s_index'
+  get 'shops/:id/calendars/:id/edit', to: 'calendars#edit', as: 'c_edit'
+  post 'shops/:id/calendars/new', to: 'calendars#create', as: 'c_create'
+  patch 'shops/:id/calendars/:id/update', to: 'calendars#update', as: 'c_update'
+  delete 'shops/:id/calendars/:id/delete', to: 'calendars#destroy', as: 'c_destroy'
 
   #users
   get 'users/new', to: 'users#new', as: 'u_new'
