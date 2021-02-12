@@ -85,7 +85,7 @@ class ShopsController < ApplicationController
       business_time = []  
       while s_time <= e_time do
         business_time.push(s_time)
-        s_time += 1
+        s_time = s_time + 1
       end     
       @shop.business_time = business_time
     end

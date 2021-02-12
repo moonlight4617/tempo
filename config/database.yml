@@ -29,4 +29,3 @@ production:
   reconnect: false
   pool: 5
   host: localhost
-  timeout: 5000
