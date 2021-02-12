@@ -29,15 +29,15 @@ Rails.application.routes.draw do
   # chats
   get 'shops/:id/chats/new', to: 'chats#new', as: 'ch_new' 
   get 'shops/:id/chats/', to: 'chats#show', as: 'ch_show' 
-  post 'shops/:id/chats/post', to: 'chats#create', as: 'ch_c' 
+  post 'shops/:id/chats/msg', to: 'chats#message', as: 'ch_msg' 
   delete 'shops/:id/chats/:id/delete', to: 'chats#destroy', as: 'ch_d' 
   
   # messages
-  get 'shops/:id/messages/index', to: 'messages#index', as: 'm_index' 
-  get 'shops/:id/messages/new', to: 'messages#new', as: 'm_new' 
-  get 'shops/:id/messages/:id', to: 'messages#show', as: 'm_show' 
-  post 'shops/:id/messages/new', to: 'messages#create', as: 'm_create' 
-  delete 'shops/:id/messages/:id/delete', to: 'messages#destroy', as: 'm_destroy' 
+  # get 'shops/:id/messages/index', to: 'messages#index', as: 'm_index' 
+  # get 'shops/:id/messages/new', to: 'messages#new', as: 'm_new' 
+  # get 'shops/:id/messages/:id', to: 'messages#show', as: 'm_show' 
+  # post 'shops/:id/messages/new', to: 'messages#create', as: 'm_create' 
+  # delete 'shops/:id/messages/:id/delete', to: 'messages#destroy', as: 'm_destroy' 
 
   #calendars
   get 'shops/calendars/index', to: 'calendars#index_for_user', as: 'c_index'

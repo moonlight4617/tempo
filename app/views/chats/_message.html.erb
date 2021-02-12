@@ -1,0 +1,7 @@
+<ul class="message">
+  <% if @messages != nil %>
+  <% @messages.each do |message| %>
+  <li><%= message.content %></li>
+  <% end %>
+  <% end %>
+</ul>

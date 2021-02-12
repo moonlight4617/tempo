@@ -1,23 +1,10 @@
-<%= @chat %>
-<%= @chat.shop.name %>
-<% if @chat.messages != nil%>
-<% @chat.messages.each do |m| %>
-<%= m.content %>
-<% end %>
-<% end %>
 <h3><%= @shop.name %>への連絡</h3>
-
-<% if @messages != nil %>
-<% @messages.each do |message| %>
-<li><%= message.content %></li>
-<div class="text" id="text<%= message.id%>">
+<div class="contents">
+  <div class="js-message-errors"></div>
+  <%= render partial: 'message'%>
+  <%= form_with(model: @message, class: 'js-form', url: ch_msg_path) do |f| %>
+  <%= f.label :content, "内容" %>
+  <%= f.text_area :content, class: "form-control", id: "message_text" %>
+  <%= f.submit "送信", class: "btn btn-primary btn-lg btn-block", id: "submit"%>
+  <% end %>
 </div>
-<% end%>
-
-<% end %>
-
-<%= form_with(model: @message, url: m_create_path ,id: 'post_message') do |f| %>
-<%= f.label :content, "内容" %>
-<%= f.text_area :content, class: "form-control", id: "message_text" %>
-<%= f.submit "送信", class: "btn btn-primary btn-lg btn-block", id: "submit"%>
-<% end %>

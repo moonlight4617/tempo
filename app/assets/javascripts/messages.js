@@ -1,18 +1,19 @@
-window.onload = function () {
-  $(document).on('turbolinks:load', function () {
-    $('#post_message').on('submit', function (e) {
-      e.preventDefault();
-      var message = $("#message_text").val();
-      console.log(message);
-    })
-  });
-};
+
+// window.onload = function () {
+//   $(document).on('turbolinks:load', function () {
+//     $('#post_message').on('submit', function (e) {
+//       e.preventDefault();
+//       var message = $("#message_text").val();
+//       console.log(message);
+//     })
+//   });
+// };
 
 // window.onload = function () {
 //   $(document).on('turbolinks:load', function () {
 //     function buildHTML(message) {
-//       var content = message.content ? `${message.content}` : "";
-//       var html = `<div class="message" data-id="${message.id}">
+//       var content = message.content ? `${ message.content } ` : "";
+//       var html = `< div class="message" data - id="${message.id}" >
 //                   <div class="message_detail">
 //                     <p class="message_detail_current-user-name">
 //                       ${message.user_name}
