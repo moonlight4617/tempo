@@ -23,7 +23,7 @@ test:
 production:
   database: tempo_production
   username: root
-  password:
+  password: Tempo_user1
   adapter: mysql2
   encoding: utf8
   reconnect: false
