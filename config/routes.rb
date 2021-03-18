@@ -29,7 +29,10 @@ Rails.application.routes.draw do
   # chats
   get 'shops/:id/chats/new', to: 'chats#new', as: 'ch_new' 
   get 'shops/:id/chats/', to: 'chats#show', as: 'ch_show' 
+  get 'shops/:id/chats/show_for_ow', to: 'chats#show_for_owner', as: 'ch_show_owner' 
+  get 'shops/:id/chats/index', to: 'chats#index_for_owner', as: 'ch_index_owner' 
   post 'shops/:id/chats/msg', to: 'chats#message', as: 'ch_msg' 
+  post 'shops/:id/chats/msg_owner', to: 'chats#message_from_shop', as: 'ch_msg_shop' 
   delete 'shops/:id/chats/:id/delete', to: 'chats#destroy', as: 'ch_d' 
   
   # messages

@@ -18,6 +18,8 @@ class UsersController < ApplicationController
   def show
     if @user == nil
       redirect_to root_path
+    else
+      @calendars = Calendar.where(user_id: session[:user_id]).limit(1)
     end
   end
 

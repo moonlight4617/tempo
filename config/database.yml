@@ -8,10 +8,17 @@ default: &default
   adapter: mysql2
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  encording: utf8
+  reconnect: false
+  username: root
+  password:
 
 development:
   <<: *default
   database: tempo_development
+  host: localhost
+  socket: /tmp/mysql.sock
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -19,13 +26,9 @@ development:
 test:
   <<: *default
   database: tempo_test
+  socket: /tmp/mysql.sock
 
 production:
+  <<: *default
   database: tempo_production
-  username: root
   password: Tempo_user1
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  pool: 5
-  host: localhost

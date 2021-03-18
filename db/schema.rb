@@ -10,42 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_06_040418) do
+ActiveRecord::Schema.define(version: 2021_03_15_094800) do
 
-  create_table "calendars", force: :cascade do |t|
+  create_table "calendars", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "start_time"
     t.string "end_time"
     t.string "rent_date"
-    t.integer "shop_id"
+    t.bigint "shop_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["shop_id"], name: "index_calendars_on_shop_id"
     t.index ["user_id"], name: "index_calendars_on_user_id"
   end
 
-  create_table "chats", force: :cascade do |t|
+  create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "room_name"
     t.integer "application_flg"
-    t.integer "shop_id"
-    t.integer "user_id"
+    t.bigint "shop_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["shop_id"], name: "index_chats_on_shop_id"
     t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
-  create_table "messages", force: :cascade do |t|
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
     t.integer "fin_flg"
     t.integer "del_flg"
-    t.integer "chat_id"
+    t.bigint "chat_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "sender"
     t.index ["chat_id"], name: "index_messages_on_chat_id"
   end
 
-  create_table "owners", force: :cascade do |t|
+  create_table "owners", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "address"
     t.integer "tel"
@@ -57,7 +58,7 @@ ActiveRecord::Schema.define(version: 2021_02_06_040418) do
     t.string "remember_digest"
   end
 
-  create_table "shops", force: :cascade do |t|
+  create_table "shops", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "prefecture"
     t.string "city"
     t.string "address"
@@ -78,7 +79,7 @@ ActiveRecord::Schema.define(version: 2021_02_06_040418) do
     t.text "business_time"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "address"
     t.integer "tel"
     t.string "email"
@@ -89,6 +90,12 @@ ActiveRecord::Schema.define(version: 2021_02_06_040418) do
     t.string "name"
     t.string "remember_digest"
     t.string "image"
+    t.string "public_uid"
   end
 
+  add_foreign_key "calendars", "shops"
+  add_foreign_key "calendars", "users"
+  add_foreign_key "chats", "shops"
+  add_foreign_key "chats", "users"
+  add_foreign_key "messages", "chats"
 end

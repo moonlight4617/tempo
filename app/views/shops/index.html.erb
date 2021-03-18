@@ -3,8 +3,8 @@
   <div class="container mt-4">
     <div class="row w-100">
       <% @shops.each do |shop| %>
+      <% if shop.del_flg != 1 %>
       <div class="col-3">
-        <% if shop.del_flg != 1%>
         <% if shop.image? %>
         <%= link_to s_show_path(shop) do %>
         <%= image_tag shop.image.url, class: 'img-thumbnail' %>

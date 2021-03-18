@@ -8,7 +8,7 @@ class UserSessionsController < ApplicationController
     if user && user.authenticate(params[:user_session][:password])
       session[:user_id] = user.id
       if session[:owner_id]
-        session[:owner_id].delete
+        session.delete(:owner_id)
       end
       params[:user_session][:remember_me] == 1 ? remember(user) : forget(user)
       redirect_back_or(s_index_path)

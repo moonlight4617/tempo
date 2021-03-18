@@ -4,6 +4,11 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
   has_many :calendars
   has_many :chats, foreign_key: :user_id, dependent: :destroy
+  include PublicUid::ModelConcern
+
+  def to_param
+    public_uid
+  end
 
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

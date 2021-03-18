@@ -1,8 +1,19 @@
 require 'test_helper'
 
 class CarendarsControllerTest < ActionDispatch::IntegrationTest
+  
   test "should get new" do
-    get carendars_new_url
+    get calendars_new_url
+    assert_response :success
+  end
+
+  test "should calendar index" do
+    get c_index_url
+    assert_response :success
+  end
+  
+  test "should calendar new" do
+    get c_new_url
     assert_response :success
   end
 

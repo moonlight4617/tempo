@@ -8,7 +8,7 @@ class OwnerSessionsController < ApplicationController
     if owner && owner.authenticate(params[:owner_session][:password])
       session[:owner_id] = owner.id
       if session[:user_id]
-        session[:user_id].delete
+        session.delete(:user_id)
       end
       params[:owner_session][:remember_me] == 1 ? remember(owner) : forget(owner)
       redirect_back_or(o_show_path)
