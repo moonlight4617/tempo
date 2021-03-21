@@ -1,19 +1,22 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
-  test "should get new" do
-    get u_new_url
-    assert_response :success
+
+  def setup
+    @user = User.new(name: "Example User", email: "user@example.com")
   end
 
-  test "should get show" do
-    get u_show_url
-    assert_response :success
+  test "should be valid" do
+    assert @user.valid?
   end
 
-  test "should get edit" do
-    get u_edit_url
-    assert_response :success
+  test "name should be present" do
+    @user.name = ""
+    assert_not @user.valid?
   end
 
+  test "email should be present" do
+    @user.email = " "
+    assert_not @user.valid?
+  end
 end

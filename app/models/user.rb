@@ -5,6 +5,10 @@ class User < ApplicationRecord
   has_many :calendars
   has_many :chats, foreign_key: :user_id, dependent: :destroy
   include PublicUid::ModelConcern
+  validates :name, presence: true
+  validates :email, presence: true
+  validates :password, presence: true
+  validates :password_confirm, presence: true
 
   def to_param
     public_uid
