@@ -10,6 +10,7 @@ class OwnersController < ApplicationController
     @owner = Owner.new(owner_params)
     if @owner.save
       session[:owner_id] = @owner.id
+      flash[:success] = "オーナー登録されました"
       redirect_to s_new_path
     else
       render 'new'

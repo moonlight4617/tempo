@@ -18,6 +18,7 @@ class ShopsController < ApplicationController
     set_business_time   
     end
     if @shop.save
+      flash[:success] = "店舗登録されました"
       redirect_to s_show_path(@shop)
     else
       render 'new'
