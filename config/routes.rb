@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'owners/new', to: 'owners#new', as: 'o_new'
   get 'owners/show', to: 'owners#show', as: 'o_show'
   get 'owners/edit', to: 'owners#edit', as: 'o_edit'
-  post 'owners/create', to: 'owners#create'
+  post 'owners/create', to: 'owners#create', as: 'o_create'
   post 'owners/update', to: 'owners#update'
   post 'owners/delete', to: 'owners#destory'
   
@@ -57,7 +57,7 @@ Rails.application.routes.draw do
   get 'users/new', to: 'users#new', as: 'u_new'
   get 'users/show', to: 'users#show', as: 'u_show'
   get 'users/edit', to: 'users#edit', as: 'u_edit'
-  post 'users/create', to: 'users#create'
+  post 'users/create', to: 'users#create', as: 'u_create'
   patch 'users/update', to: 'users#update'
   post 'users/destroy', to: 'users#destroy'
 

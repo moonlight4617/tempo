@@ -2,28 +2,23 @@
   <div class="py-5 text-center">
     <h3 class="mb-3 font-weight-normal">新規登録</h3>
   </div>
-  <div class="form-group row">
-    <%= form_for(@owner, url: {controller: 'owners', action: 'create', class: 'needs-validation'}) do |f| %>
-    <%= f.label :name, "名前" %>
+  <div class="form-group">
+    <%= form_for(@owner, url: {controller: 'owners', action: 'create', class: 'needs-validation', method: 'post'}) do |f| %>
+    <%= render '/layouts/owner_error_messages' %>
+    <%= f.label :name, "名前" %><span class="required"> *必須項目</span>
     <%= f.text_field :name, class: "form-control" %>
-    <div class=" invalid-feedback">
-      "名前を入力してください"
-    </div>
     <br>
 
-    <%= f.label :email, "Eメール" %>
+    <%= f.label :email, "Eメール" %><span class="required"> *必須項目</span>
     <%= f.text_field :email, class:"form-control" %>
-    <div class="invalid-feedback">
-      "有効なメールアドレスを入力してください"
-    </div>
     <br>
     <%= f.label :tel, "電話番号" %>
     <%= f.text_field :tel, class: "form-control" %><br>
     <%= f.label :address, '住所' %>
     <%= f.text_field :address, class: "form-control" %><br>
-    <%= f.label :password, "パスワード" %>
+    <%= f.label :password, "パスワード" %><span class="required"> *必須項目</span>
     <%= f.text_field :password, class: "form-control" %><br>
-    <%= f.label :password_confirmation, "パスワードの確認" %>
+    <%= f.label :password_confirmation, "パスワードの確認" %><span class="required"> *必須項目</span>
     <%= f.text_field :password_confirmation, class: "form-control" %><br>
     <%= f.submit label="登録", class: "btn btn-primary btn-lg btn-block" %>
     <% end %>
