@@ -13,3 +13,8 @@
 #   email: MyString
 #   password_digest: <%= BCrypt::Password.create('password') %>
 #   del_flg: 1
+
+ryoji:
+  name: User_Ryoji Example
+  email: ryoji@example.com
+  password_digest: <%= User.digest('password') %>

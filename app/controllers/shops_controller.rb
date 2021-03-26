@@ -35,6 +35,7 @@ class ShopsController < ApplicationController
   def update
     set_business_time
     if @shop.update(shop_params)
+      flash[:success] = "店舗情報は更新されました"
       redirect_to s_show_path(@shop)
     else
       render 'edit'

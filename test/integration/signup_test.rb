@@ -16,6 +16,7 @@ class SignupTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_not flash.empty?
+    assert_not session[:user_id].nil?
   end
   
   test "invalid signup_for_owner information" do
@@ -32,5 +33,20 @@ class SignupTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_not flash.empty?
+    assert_not session[:owner_id].nil?
+  end
+
+  test "valid signup_for_shop" do
+    name = "Example Shop"
+    prefecture = "sample"
+    city = "sample"
+    tel = "123456789"
+    station = "sample"
+    zip_code = "1234567"
+
+    @owner = owners(:owner_ryoji)
+    assert_difference 'Shop.count', 1 do
+      @owner.shops.create(name: name, prefecture: prefecture, city: city, tel: tel, station: station, zip_code: zip_code)
+    end
   end
 end

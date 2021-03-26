@@ -3,15 +3,15 @@ Rails.application.routes.draw do
   
   #owner_sessions
   get 'owners/login', to: 'owner_sessions#new', as: 'owner_login'
-  post 'owners/loggedin', to: 'owner_sessions#create', as: 'owner_logged_in'
+  post 'owners/login', to: 'owner_sessions#create', as: 'owner_logged_in'
   delete 'owners/logout', to: 'owner_sessions#logout', as: 'owner_logout'
   
   #owners
   get 'owners/new', to: 'owners#new', as: 'o_new'
   get 'owners/show', to: 'owners#show', as: 'o_show'
   get 'owners/edit', to: 'owners#edit', as: 'o_edit'
-  post 'owners/create', to: 'owners#create', as: 'o_create'
-  post 'owners/update', to: 'owners#update'
+  post 'owners/new', to: 'owners#create', as: 'o_create'
+  patch 'owners/edit', to: 'owners#update'
   post 'owners/delete', to: 'owners#destory'
   
   #shops
@@ -20,10 +20,10 @@ Rails.application.routes.draw do
   get 'shops/:id', to: 'shops#show', as: 's_show'
   get 'shops/:id/edit', to: 'shops#edit', as: 's_edit'
   get 'shops/:id/set_business_time', to: 'shops#set_business_time', as: 's_set_business_time'
-  post 'shops/create', to: 'shops#create'
+  post 'shops/new', to: 'shops#create', as: 's_create'
   post 'shops/zip', to: 'shops#zip'
-  patch 'shops/:id/update', to: 'shops#update'
-  patch 'shops/:id/create_business_time', to: 'shops#update'
+  patch 'shops/:id/edit', to: 'shops#update'
+  patch 'shops/:id/set_business_time', to: 'shops#update'
   delete 'shops/:id/delete', to: 'shops#destroy', as: 's_destroy'
   
   # chats
@@ -50,20 +50,20 @@ Rails.application.routes.draw do
   get 'shops/:id/calendars/s_index', to: 'calendars#s_index', as: 'c_s_index'
   get 'shops/:id/calendars/:id/edit', to: 'calendars#edit', as: 'c_edit'
   post 'shops/:id/calendars/new', to: 'calendars#create', as: 'c_create'
-  patch 'shops/:id/calendars/:id/update', to: 'calendars#update', as: 'c_update'
+  patch 'shops/:id/calendars/:id/edit', to: 'calendars#update', as: 'c_update'
   delete 'shops/:id/calendars/:id/delete', to: 'calendars#destroy', as: 'c_destroy'
 
   #users
   get 'users/new', to: 'users#new', as: 'u_new'
   get 'users/show', to: 'users#show', as: 'u_show'
   get 'users/edit', to: 'users#edit', as: 'u_edit'
-  post 'users/create', to: 'users#create', as: 'u_create'
-  patch 'users/update', to: 'users#update'
-  post 'users/destroy', to: 'users#destroy'
+  post 'users/new', to: 'users#create', as: 'u_create'
+  patch 'users/edit', to: 'users#update', as: 'u_update'
+  post 'users/destroy', to: 'users#destroy', as: 'u_destroy'
 
   #user_session
   get 'users/login', to: 'user_sessions#new', as: 'user_login'
-  post 'users/loggedin', to: 'user_sessions#create', as: 'user_loggedin'
+  post 'users/login', to: 'user_sessions#create', as: 'user_logged_in'
   delete 'users/logout', to: 'user_sessions#logout', as: 'user_logout'
 
 end

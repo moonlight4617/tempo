@@ -2,20 +2,21 @@
   <h3 class="text-center">店舗編集</h3>
   <div class="form-group">
     <%= form_for(@shop, url: {controller: 'shops', action: 'update'}) do |f| %>
-    <%= f.label :name, "店舗名" %>
+    <%= render '/layouts/error_messages' %>
+    <%= f.label :name, "店舗名" %><span class="required"> *必須項目</span>
     <%= f.text_field :name, class: "form-control" %><br>
-    <%= f.label :zip_code, "郵便番号" %>
+    <%= f.label :zip_code, "郵便番号" %><span class="required"> *必須項目</span>
     <%= f.text_field :zip_code, id:'zip_code'%>
     <button type="button" id='search'>住所自動入力</button><br>
-    <%= f.label :prefecture, "都道府県" %>
+    <%= f.label :prefecture, "都道府県" %><span class="required"> *必須項目</span>
     <%= f.text_field :prefecture, class: "form-control", id: "pref_name" %><br>
-    <%= f.label :city, "市町村" %>
-    <%= f.text_field :address, class: "form-control", id: "city" %><br>
+    <%= f.label :city, "市町村" %><span class="required"> *必須項目</span>
+    <%= f.text_field :city, class: "form-control", id: "city" %><br>
     <%= f.label :address, "番地以下の住所" %>
     <%= f.text_field :address, class: "form-control", id: "other" %><br>
-    <%= f.label :tel, "電話番号" %>
+    <%= f.label :tel, "電話番号" %><span class="required"> *必須項目</span>
     <%= f.text_field :tel, class: "form-control" %><br>
-    <%= f.label :station, "最寄り駅" %>
+    <%= f.label :station, "最寄り駅" %><span class="required"> *必須項目</span>
     <%= f.text_field :station, class: "form-control" %><br>
     <%= f.label :capacity, "最大席数" %>
     <%= f.text_field :capacity, class: "form-control" %><br>

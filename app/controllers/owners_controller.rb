@@ -1,6 +1,8 @@
 class OwnersController < ApplicationController
   before_action :set_owner, only: [:show, :edit, :update, :destroy]
-  before_action :before_login_owner, except: [:new, :create]
+  before_action :owner_exist?, only: [:show, :edit, :update, :destroy]
+
+  include OwnerSessionsHelper
 
   def new
     @owner = Owner.new
@@ -26,6 +28,7 @@ class OwnersController < ApplicationController
 
   def update
     if @owner.update(owner_params)
+      flash[:success] = "オーナー情報が更新されました"
       redirect_to o_show_path
     else
       render 'new'
@@ -33,8 +36,9 @@ class OwnersController < ApplicationController
   end
 
   def destroy
-    @owner.del_flg = 1
-    @owner.save
+    @owner.update(del_flg: 1)
+    flash[:info] = "ユーザー情報は削除されました"
+    log_out_owner
     redirect_to root_path
   end
 
@@ -46,5 +50,14 @@ class OwnersController < ApplicationController
 
     def set_owner
       @owner = Owner.find_by(id: session[:owner_id])
+    end
+
+    def owner_exist?
+      if @owner == nil || @owner.del_flg == 1
+        redirect_to root_path
+        flash[:warning] = "ログインまたは新規登録してください"
+      else
+        current_owner
+      end
     end
 end

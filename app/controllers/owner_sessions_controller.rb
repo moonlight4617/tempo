@@ -1,40 +1,33 @@
 class OwnerSessionsController < ApplicationController
 
+  include OwnerSessionsHelper
+  include UserSessionsHelper
+
   def new
   end
 
   def create
-    owner = Owner.find_by(email: params[:owner_session][:email])
+    owner = Owner.find_by(email: params[:owner_session][:email].downcase)
     if owner && owner.authenticate(params[:owner_session][:password])
       session[:owner_id] = owner.id
       if session[:user_id]
+        @user = User.find(session[:user_id])
         session.delete(:user_id)
+        forget(@user)
       end
-      params[:owner_session][:remember_me] == 1 ? remember(owner) : forget(owner)
+      params[:owner_session][:remember_owner] == '1' ? remember_owner(owner) : forget_owner(owner)
       redirect_back_or(o_show_path)
     else
+      flash.now[:danger] = 'Eメールまたはパスワードが有効のものではありません'
       render 'new'
     end
   end
 
   def logout
-    if session[:owner_id]
-      session.delete(:owner_id)
+    if logged_in_owner?
+      @owner = Owner.find(session[:owner_id])
+      log_out_owner
       redirect_to root_path
     end
   end
-
-  private
-
-    def remember(owner)
-      owner.save_remember_digest
-      cookies.permanent.signed[:owner_id] = owner.id
-      cookies.permanent[:remember_token] = owner.remember_token
-    end
-
-    def forget(owner)
-      owner.forget_remember_digest
-      cookies.delete(:owner_id)
-      cookies.delete(:remember_token)
-    end
 end

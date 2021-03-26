@@ -13,6 +13,7 @@
       <p>口コミ評価：口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文</p>
       <%= link_to "登録情報編集", u_edit_path %><br>
       <%= link_to "予約一覧", c_index_path%>
+      <%= link_to "アカウントの削除", u_destroy_path, method: "post" ,data: { confirm: "本当にアカウントそのものを削除しますか？" } %>
     </div>
   </div>
   <div class="row">

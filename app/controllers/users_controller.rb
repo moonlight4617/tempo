@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
+
+  include UserSessionsHelper
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :user_exist?, only: [:show, :edit, :update, :destroy]
 
   def new
     @user = User.new
@@ -17,21 +20,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    if @user == nil
-      redirect_to root_path
-    else
-      @calendars = Calendar.where(user_id: session[:user_id]).limit(1)
-    end
+    @calendars = Calendar.where(user_id: session[:user_id]).limit(1)
   end
 
   def edit
-    if @user == nil
-      redirect_to root_path
-    end
+    @user = @current_user
   end
 
   def update
     if @user.update(user_params)
+      flash[:success] = "ユーザー情報が更新されました"
       redirect_to u_show_path
     else
       render 'new'
@@ -39,8 +37,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.del_flg = 1
-    @user.save
+    @user.update(del_flg: 1)
+    flash[:info] = "ユーザー情報は削除されました"
+    log_out
     redirect_to root_path
   end
 
@@ -54,4 +53,12 @@ class UsersController < ApplicationController
       @user = User.find_by(id: session[:user_id])
     end
 
+    def user_exist?
+      if @user == nil || @user.del_flg == 1
+        redirect_to root_path
+        flash[:warning] = "ログインまたは新規登録してください"
+      else
+        current_user
+      end
+    end
 end
