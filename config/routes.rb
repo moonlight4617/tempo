@@ -10,9 +10,10 @@ Rails.application.routes.draw do
   get 'owners/new', to: 'owners#new', as: 'o_new'
   get 'owners/show', to: 'owners#show', as: 'o_show'
   get 'owners/edit', to: 'owners#edit', as: 'o_edit'
+  get 'owners/about', to: 'owners#about', as: 'o_about'
   post 'owners/new', to: 'owners#create', as: 'o_create'
   patch 'owners/edit', to: 'owners#update'
-  post 'owners/delete', to: 'owners#destory'
+  patch 'owners/delete', to: 'owners#destroy', as: 'o_destroy'
   
   #shops
   get 'shops', to: 'shops#index', as: 's_index'
@@ -24,7 +25,7 @@ Rails.application.routes.draw do
   post 'shops/zip', to: 'shops#zip'
   patch 'shops/:id/edit', to: 'shops#update'
   patch 'shops/:id/set_business_time', to: 'shops#update'
-  delete 'shops/:id/delete', to: 'shops#destroy', as: 's_destroy'
+  patch 'shops/:id/delete', to: 'shops#destroy', as: 's_destroy'
   
   # chats
   get 'shops/:id/chats/new', to: 'chats#new', as: 'ch_new' 
@@ -49,6 +50,7 @@ Rails.application.routes.draw do
   get 'shops/:id/calendars/prev', to: 'calendars#prev', as: 'c_prev'
   get 'shops/:id/calendars/s_index', to: 'calendars#s_index', as: 'c_s_index'
   get 'shops/:id/calendars/:id/edit', to: 'calendars#edit', as: 'c_edit'
+  post 'shops/:id/calendars/confirm', to: 'calendars#confirm', as: 'c_confirm'
   post 'shops/:id/calendars/new', to: 'calendars#create', as: 'c_create'
   patch 'shops/:id/calendars/:id/edit', to: 'calendars#update', as: 'c_update'
   delete 'shops/:id/calendars/:id/delete', to: 'calendars#destroy', as: 'c_destroy'
@@ -57,9 +59,10 @@ Rails.application.routes.draw do
   get 'users/new', to: 'users#new', as: 'u_new'
   get 'users/show', to: 'users#show', as: 'u_show'
   get 'users/edit', to: 'users#edit', as: 'u_edit'
+  get 'users/about', to: 'users#about', as: 'u_about'
   post 'users/new', to: 'users#create', as: 'u_create'
   patch 'users/edit', to: 'users#update', as: 'u_update'
-  post 'users/destroy', to: 'users#destroy', as: 'u_destroy'
+  patch 'users/destroy', to: 'users#destroy', as: 'u_destroy'
 
   #user_session
   get 'users/login', to: 'user_sessions#new', as: 'user_login'

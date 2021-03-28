@@ -1,3 +1,5 @@
+<%
+=begin%>
 <%= form_for(@calendar, url: {controller: 'calendars', action: 'create'}) do |f| %>
 <table class="table">
   <thead>
@@ -376,3 +378,5 @@
     });
   }
 </script>
+<%
+=end%>

@@ -22,15 +22,11 @@ class OwnersSessionTest < ActionDispatch::IntegrationTest
     delete owner_logout_path
     assert session[:owner_id].nil?
   end
-
-  test "login_owner with remembering" do
-    log_in_as_owner(@owner, remember_owner: '1')
-    assert_not_empty cookies['remember_owner_token']
-  end
-
-  test "login_owner without remembering" do
+  
+  test "login_owner with remembering and without remembering" do
     # クッキーを保存してログイン
     log_in_as_owner(@owner, remember_owner: '1')
+    assert_not_empty cookies['remember_owner_token']
     delete owner_logout_path
     # クッキーを削除してログイン
     log_in_as_owner(@owner, remember_owner: '0')

@@ -12,9 +12,9 @@
   <p>紹介文：<%= @shop.content %></p>
   <% if @shop.owner == Owner.find_by(id: session[:owner_id]) %>
   <%= link_to "店舗情報編集", s_edit_path %>
-  <%= link_to "店舗を削除する", s_destroy_path, method: :delete %>
+  <%= link_to "店舗を削除する", s_destroy_path, method: "patch", data: { confirm: "本当に店舗そのものを削除しますか？" } %>
   <% else %>
-  <%= link_to "オーナーさんに相談する", ch_show_path %>
+  <%= link_to "質問を送る", ch_show_path %>
   <%= link_to "予約日時選択", c_new_path %>
   <% if Calendar.find_by(shop_id: @shop.id, user_id: session[:user_id]) != nil %>
   <%= link_to "予約申込一覧", c_s_index_path(@shop)%>

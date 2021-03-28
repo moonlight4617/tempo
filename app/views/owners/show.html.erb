@@ -15,9 +15,9 @@
   </p>
 </ul>
 <% end %>
-<%= link_to "店舗詳細", s_show_path(shop) %>
-<%= link_to "店舗情報編集", s_edit_path(shop) %>
-<%= link_to "質問に応える", ch_index_owner_path(shop) %>
+<%= link_to "店舗詳細", s_show_path(shop) %><br>
+<%= link_to "メッセージ", ch_index_owner_path(shop) %><br>
 <% end %>
 <% end %>
-<%= link_to "店舗新規登録", s_new_path %>
+<%= link_to "新しく店舗を登録する", s_new_path %><br>
+<%= link_to "オーナーアカウントの削除", o_destroy_path, method: "patch" ,data: { confirm: "一度アカウントを削除すると、元に戻せません。本当にアカウントそのものを削除しますか？" } %>

@@ -37,7 +37,7 @@ class OwnersController < ApplicationController
 
   def destroy
     @owner.update(del_flg: 1)
-    flash[:info] = "ユーザー情報は削除されました"
+    flash[:info] = "オーナー情報は削除されました"
     log_out_owner
     redirect_to root_path
   end
