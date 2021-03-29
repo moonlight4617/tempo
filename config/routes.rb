@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   get 'shops/:id/calendars/prev', to: 'calendars#prev', as: 'c_prev'
   get 'shops/:id/calendars/s_index', to: 'calendars#s_index', as: 'c_s_index'
   get 'shops/:id/calendars/:id/edit', to: 'calendars#edit', as: 'c_edit'
-  post 'shops/:id/calendars/confirm', to: 'calendars#confirm', as: 'c_confirm'
+  get 'shops/:id/calendars/confirm', to: 'calendars#confirm', as: 'c_confirm'
   post 'shops/:id/calendars/new', to: 'calendars#create', as: 'c_create'
   patch 'shops/:id/calendars/:id/edit', to: 'calendars#update', as: 'c_update'
   delete 'shops/:id/calendars/:id/delete', to: 'calendars#destroy', as: 'c_destroy'

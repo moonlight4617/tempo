@@ -1,5 +1,6 @@
 class CalendarsController < ApplicationController
-  before_action :set_shop, except: :index_for_user
+
+before_action :set_shop, except: :index_for_user
 
   def index_for_user
     @calendars = Calendar.where(user_id: session[:user_id])
@@ -15,33 +16,53 @@ class CalendarsController < ApplicationController
   end
 
   def create
-    if params[:next] != nil
-      today = params[:calendar][:day].to_date
-      @today = today + 7
-      set_business_time
-      set_calendar
-      render "new"
-    elsif params[:prev] != nil
-      today = params[:calendar][:day].to_date
-      @today = today - 7
-      set_business_time
-      set_calendar
-      render "new"
-    elsif params[:calendar][:rent_date] != nil
-      params[:calendar][:rent_date].each do |reserve|
-        res = reserve.split
-        @calendar = @shop.calendars.create(
-              rent_date: res[0],
-              start_time: res[1],            
-              user_id: session[:user_id]
-            )
-      end
-      redirect_to c_index_path
-    else
-      flash[:danger] = "日時をチェックしてください"
-      redirect_to c_new_path
+    reserve_days = params[:calendar][:candidate_days]
+    reserve = reserve_days.split
+
+    i = 0
+    while i <= reserve.length do
+      @calendar = @shop.calendars.create(
+        rent_date: reserve[i],
+        start_time: reserve[i+1],            
+        user_id: session[:user_id]
+        )
+        i += 2
     end
+    redirect_to c_index_path
+    # else
+    #   flash[:danger] = "有効な日付を選択してください"
+    #   redirect_to c_new_path
+    # end
   end
+
+  # def create
+  #   if params[:next] != nil
+  #     today = params[:calendar][:day].to_date
+  #     @today = today + 7
+  #     set_business_time
+  #     set_calendar
+  #     render "new"
+  #   elsif params[:prev] != nil
+  #     today = params[:calendar][:day].to_date
+  #     @today = today - 7
+  #     set_business_time
+  #     set_calendar
+  #     render "new"
+  #   elsif params[:calendar][:rent_date] != nil
+  #     params[:calendar][:rent_date].each do |reserve|
+  #       res = reserve.split
+  #       @calendar = @shop.calendars.create(
+  #             rent_date: res[0],
+  #             start_time: res[1],            
+  #             user_id: session[:user_id]
+  #           )
+  #     end
+  #     redirect_to c_index_path
+  #   else
+  #     flash[:danger] = "日時をチェックしてください"
+  #     redirect_to c_new_path
+  #   end
+  # end
 
   def confirm
     if params[:next] != nil
@@ -57,36 +78,13 @@ class CalendarsController < ApplicationController
       set_calendar
       render "new"
     elsif params[:calendar][:rent_date] != nil
-      params[:calendar][:rent_date].each do |reserve|
-        res = reserve.split
-        @calendar = @shop.calendars.create(
-              rent_date: res[0],
-              start_time: res[1],            
-              user_id: session[:user_id]
-            )
-      end
-        redirect_to c_index_path
+      @candidate_days = params[:calendar][:rent_date]
+      @candidate_days
     else
       flash[:danger] = "日時をチェックしてください"
       redirect_to c_new_path
     end
   end
-
-  # def next
-  #   today = params[:calendar][:day].to_date
-  #   @today = today + 7
-  #   set_business_time
-  #   set_calendar
-  # end
-
-  # def prev
-  #   today = params[:calendar][:day].to_date
-  #   @today = today - 7
-    
-  #   set_business_time
-  #   set_calendar
-  #   render 'next'
-  # end
 
   def s_index
     @calendars = @shop.calendars.where(user_id: session[:user_id])

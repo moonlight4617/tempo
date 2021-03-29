@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @calendars = Calendar.where(user_id: session[:user_id]).limit(1)
+    @calendars = Calendar.where(user_id: session[:user_id]).select(:shop_id).distinct
   end
 
   def edit

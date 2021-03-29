@@ -1,5 +1,5 @@
 <div class="table">
-  <%= form_for(:calendar, url:{controller: 'calendars', action: 'create'}) do |f| %>
+  <%= form_for(:calendar, url:{controller: 'calendars', action: 'confirm' }, html: {method: 'GET'}) do |f| %>
   <table>
     <thead>
       <tr class="thead-dark">
@@ -41,7 +41,7 @@
 
     </tbody>
   </table>
-  <%= f.submit "申し込む" %>
+  <%= f.submit "確認画面へ" %>
   <% end%>
   <%= link_to "店舗に質問を送る", ch_show_path %>
 </div>

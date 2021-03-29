@@ -24,7 +24,7 @@
       <% if cal.shop.image? %>
       <%= link_to image_tag(cal.shop.image.url), s_show_path(cal.shop.id)%>
       <% else %>
-      <%= link_to cal.shop.name, s_show_path(cal.shop) %>
+      <%= link_to cal.shop.name, s_show_path(cal.shop) %><br>
       <% end %>
       <% end %>
       <%  else %>
