@@ -13,5 +13,6 @@
     <%= f.submit label="ログイン", class: "btn btn-lg btn-primary btn-block" %>
     <% end %>
   </form>
-  <%= link_to "新規会員登録へ", u_new_path %>
+  <p class="mt-3"><%= link_to "新規会員登録へ", u_new_path %></p>
+  <p class="mt-3"><%= link_to "サンプルユーザーとしてログイン", sample_user_path, method: 'post' %></p>
 </div>

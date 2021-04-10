@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_110305) do
+ActiveRecord::Schema.define(version: 2021_04_03_142213) do
+
+  create_table "availables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "rent_date"
+    t.string "start_time"
+    t.bigint "shop_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shop_id"], name: "index_availables_on_shop_id"
+  end
 
   create_table "calendars", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "start_time"
@@ -95,6 +104,7 @@ ActiveRecord::Schema.define(version: 2021_03_22_110305) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "availables", "shops"
   add_foreign_key "calendars", "shops"
   add_foreign_key "calendars", "users"
   add_foreign_key "chats", "shops"
