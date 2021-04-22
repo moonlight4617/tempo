@@ -6,13 +6,12 @@ default: &default
   encording: utf8
   reconnect: false
   username: root
-  password:
   socket: /tmp/mysql.sock
+  host: localhost
 
 development:
   <<: *default
   database: tempo_development
-  host: localhost
 
 
 # Warning: The database defined as "test" will be erased and
@@ -26,4 +25,5 @@ test:
 production:
   <<: *default
   database: tempo_production
-  password:
+  password: Abbey1234@
+  
