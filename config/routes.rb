@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   #owner_sessions
   get 'owners/login', to: 'owner_sessions#new', as: 'owner_login'
   post 'owners/login', to: 'owner_sessions#create', as: 'owner_logged_in'
+  post 'owners/sample_owner', to: 'owner_sessions#sample_owner', as: 'sample_owner'
   delete 'owners/logout', to: 'owner_sessions#logout', as: 'owner_logout'
   
   #owners
@@ -18,14 +19,22 @@ Rails.application.routes.draw do
   #shops
   get 'shops', to: 'shops#index', as: 's_index'
   get 'shops/new', to: 'shops#new', as: 's_new'
+  get 'shops/select_prefecture', to: 'shops#select_prefecture', as: 's_pref'
   get 'shops/:id', to: 'shops#show', as: 's_show'
   get 'shops/:id/edit', to: 'shops#edit', as: 's_edit'
   get 'shops/:id/set_business_time', to: 'shops#set_business_time', as: 's_set_business_time'
+  get 'shops/:id/reservation_frame', to: 'shops#reservation_frame', as: 's_res'
+  get 'shops/:id/next', to: 'shops#next', as: 's_next'
+  get 'shops/:id/prev', to: 'shops#prev', as: 's_prev'
+  get 'shops/:id/modal_register', to: 'shops#modal_register', as: 's_modal'
   post 'shops/new', to: 'shops#create', as: 's_create'
   post 'shops/zip', to: 'shops#zip'
+  post 'shops/:id/set_reservation_frame', to: 'shops#set_reservation_frame', as: 's_set_res'
+  post 'shops/:id/set_reservation_day_frame', to: 'shops#set_reservation_day_frame', as: 's_day_res'
   patch 'shops/:id/edit', to: 'shops#update'
   patch 'shops/:id/set_business_time', to: 'shops#update'
   patch 'shops/:id/delete', to: 'shops#destroy', as: 's_destroy'
+  delete 'shops/:id/remove_reservation_frame', to: 'shops#remove_reservation_frame', as: 's_remove_res'
   
   # chats
   get 'shops/:id/chats/new', to: 'chats#new', as: 'ch_new' 
@@ -67,6 +76,7 @@ Rails.application.routes.draw do
   #user_session
   get 'users/login', to: 'user_sessions#new', as: 'user_login'
   post 'users/login', to: 'user_sessions#create', as: 'user_logged_in'
+  post 'users/login_sample', to: 'user_sessions#sample_user', as: 'sample_user'
   delete 'users/logout', to: 'user_sessions#logout', as: 'user_logout'
 
 end

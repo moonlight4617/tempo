@@ -27,4 +27,3 @@ production:
   <<: *default
   database: tempo_production
   password:
-

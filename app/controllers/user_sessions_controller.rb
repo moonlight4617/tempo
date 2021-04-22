@@ -43,4 +43,17 @@ class UserSessionsController < ApplicationController
     #   redirect_to root_path
     # end
   end
+
+  def sample_user
+    @user = User.find(7)
+    session[:user_id] = @user.id
+    if session[:owner_id]
+      @owner = Owner.find(session[:owner_id])
+      session.delete(:owner_id)
+      forget_owner(@owner)
+      # cookies.delete(:owner_id)
+      # cookies.delete(:owner_remember_token)
+    end
+    redirect_back_or(s_index_path)
+  end
 end

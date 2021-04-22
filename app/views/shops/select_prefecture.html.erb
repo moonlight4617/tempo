@@ -1,9 +1,12 @@
+<% @shops.each do |shop| %>
+<%= shop.name%>
+<%end%>
 <h3>店舗一覧</h3>
 <div container-fluid>
   <div class="row">
     <div class="col-3">
       <table class="table">
-        <%= form_with scope: :search, url: s_pref_path, local: true, method: 'get' do |f| %>
+        <%= form_with url: s_pref_path, local: true, method: 'get' do |f| %>
         <tr>
           <th>関東</th>
         </tr>
@@ -41,7 +44,7 @@
         </tr>
         <% @tags.each do |tag| %>
         <tr>
-          <td><%= f.check_box :tag, {multiple: true}, tag.id, nil %><%= f.label :tag, tag.name %></td>
+          <td><%= f.check_box :tag, {multiple: true}, tag.name, nil %><%= f.label :tag, tag.name %></td>
         </tr>
         <% end %>
         <tr>
