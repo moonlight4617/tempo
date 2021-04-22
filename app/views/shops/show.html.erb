@@ -10,6 +10,7 @@
   <p>席数：<%= @shop.capacity %></p>
   <p>基本料金：<%= @shop.price %></p>
   <p>紹介文：<%= @shop.content %></p>
+  <p>特徴タグ：<%= @shop.tag %></p>
   <% if @shop.owner == Owner.find_by(id: session[:owner_id]) %>
   <%= link_to "予約枠の開放・閉鎖", s_res_path %>
   <%= link_to "店舗情報編集", s_edit_path %>

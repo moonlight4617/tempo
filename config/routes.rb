@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   #shops
   get 'shops', to: 'shops#index', as: 's_index'
   get 'shops/new', to: 'shops#new', as: 's_new'
+  get 'shops/select_prefecture', to: 'shops#select_prefecture', as: 's_pref'
   get 'shops/:id', to: 'shops#show', as: 's_show'
   get 'shops/:id/edit', to: 'shops#edit', as: 's_edit'
   get 'shops/:id/set_business_time', to: 'shops#set_business_time', as: 's_set_business_time'

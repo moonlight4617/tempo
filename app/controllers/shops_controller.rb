@@ -1,11 +1,12 @@
 class ShopsController < ApplicationController
-  before_action :set_shop, except: [:new, :create, :index, :zip]
+  before_action :set_shop, except: [:new, :create, :index, :zip, :select_prefecture]
   before_action :set_owner, only: [:create, :show]
   before_action :before_login_owner, only: [:new, :create, :edit, :update, :destroy]
   before_action :correct_owner, only: [:edit, :update, :destroy]
   
   def index
     @shops = Shop.all
+    @tags = Tag.all
   end
 
   def new
@@ -50,6 +51,32 @@ class ShopsController < ApplicationController
 
   def zip
     p params
+  end
+
+  def select_prefecture
+    # p params
+    # s = []
+    # tag_shops = []
+
+    
+    # params[:tag].each do |tag|
+    #   s.push(Tag.find(tag).shop.ids)
+    # end
+    
+    # s.each do |s|
+    #   tag_shops.push(Shop.find(s))
+    # end
+
+    @search_params = search_params
+    # @shops = Shop.search(@search_params).includes(:tag)
+    @shops = Shop.where('prefecture LIKE ?', "%#{params[:search][:prefecture]}%")
+    
+    
+    # .where(tag_id: params[:search][:tag])
+    @tags = Tag.all
+
+    # pre_shops = Shop.where(prefecture: params[:prefecture])
+    # @shops = tag_shops & pre_shops
   end
 
   def create_business_time
@@ -278,5 +305,9 @@ class ShopsController < ApplicationController
       a_days.each do |day|
         @available_days.push("#{day.rent_date}, #{day.start_time}")
       end
+    end
+
+    def search_params
+      params.fetch(:search, {}).permit(:prefecture, :tag)
     end
 end
