@@ -5,14 +5,14 @@ default: &default
   timeout: 5000
   encording: utf8
   reconnect: false
-  username: root
-  password:
   socket: /tmp/mysql.sock
+  host: localhost
+  username: <%= Rails.application.credentials.db[:username] %>
+  password: <%= Rails.application.credentials.db[:password] %>
 
 development:
   <<: *default
   database: tempo_development
-  host: localhost
 
 
 # Warning: The database defined as "test" will be erased and
@@ -26,4 +26,4 @@ test:
 production:
   <<: *default
   database: tempo_production
-  password:
+  
