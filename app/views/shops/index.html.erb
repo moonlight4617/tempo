@@ -3,7 +3,8 @@
   <div class="row">
     <div class="col-3">
       <table class="table">
-        <%= form_with scope: :search, url: s_pref_path, local: true, method: 'get' do |f| %>
+
+        <%= form_with model: @shop, url: s_pref_path, local: true, method: 'get' do |f| %>
         <tr>
           <th>関東</th>
         </tr>
@@ -50,6 +51,7 @@
         <% end %>
       </table>
     </div>
+
 
     <div class="col-9">
       <div class="row">

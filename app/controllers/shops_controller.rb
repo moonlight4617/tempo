@@ -54,29 +54,30 @@ class ShopsController < ApplicationController
   end
 
   def select_prefecture
-    # p params
-    # s = []
-    # tag_shops = []
-
     
-    # params[:tag].each do |tag|
-    #   s.push(Tag.find(tag).shop.ids)
-    # end
-    
-    # s.each do |s|
-    #   tag_shops.push(Shop.find(s))
-    # end
-
-    @search_params = search_params
+    p params
+      
+    prefecture_params = params.permit(prefecture: [])
+    @shops = Shop.where('prefecture LIKE ?', "%#{params[:prefecture]}}%")
     # @shops = Shop.search(@search_params).includes(:tag)
-    @shops = Shop.where('prefecture LIKE ?', "%#{params[:search][:prefecture]}%")
+    # tag_params = params.permit(:tag)
     
+    binding.pry
+    
+    
+    # joins(:tag_to_shops).where('tag_id LIKE ?', "%#{params[:search][:tag]}%")
+    
+
     
     # .where(tag_id: params[:search][:tag])
+    
     @tags = Tag.all
 
     # pre_shops = Shop.where(prefecture: params[:prefecture])
     # @shops = tag_shops & pre_shops
+    
+    render 'index'
+  
   end
 
   def create_business_time
@@ -100,10 +101,8 @@ class ShopsController < ApplicationController
     end_time = params[:end_time].to_i
     while start_time < end_time do
         if start_time < 10
-          # @available_days.push("#{params[:rent_date]}, 0#{start_time}:00:00")
           @shop.availables.create(rent_date: params[:rent_date], start_time: "0#{start_time}:00:00")
         else
-          # @available_days.push("#{params[:rent_date]}, #{start_time}:00:00")
           @shop.availables.create(rent_date: params[:rent_date], start_time: "#{start_time}:00:00")
         end
       start_time += 1
@@ -307,7 +306,4 @@ class ShopsController < ApplicationController
       end
     end
 
-    def search_params
-      params.fetch(:search, {}).permit(:prefecture, :tag)
-    end
 end

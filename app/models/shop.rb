@@ -13,12 +13,12 @@ class Shop < ApplicationRecord
   validates :tel, presence: true
   validates :station, presence: true
 
-  scope :search, -> (search_params) do
-    return if search_params.blank?
-    prefecture(search_params[:prefecture])
-      .tag(search_params[:tag])
-  end
-  scope :prefecture, -> (prefecture) { where('prefecture LIKE ?', "%#{prefecture}%") if prefecture.present?}
-  scope :tag, -> (tag) { where(tag_id: tag) if tag.present?}
+  # scope :search, -> (search_params) do
+  #   return if search_params.blank?
+  #   prefecture(search_params[:prefecture])
+  #     .tag(search_params[:tag])
+  # end
+  # scope :prefecture, -> (prefecture) { where('prefecture LIKE ?', "%#{prefecture}%") if prefecture.present?}
+  # scope :tag, -> (tag) { where(tag_id: tag) if tag.present?}
   
 end
