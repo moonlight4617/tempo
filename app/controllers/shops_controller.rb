@@ -28,6 +28,7 @@ class ShopsController < ApplicationController
 
   def show
     @owner = @shop.owner
+    @tags = @shop.tag
   end
 
   def edit
@@ -62,13 +63,9 @@ class ShopsController < ApplicationController
     # @shops = Shop.search(@search_params).includes(:tag)
     # tag_params = params.permit(:tag)
     
-    binding.pry
-    
     
     # joins(:tag_to_shops).where('tag_id LIKE ?', "%#{params[:search][:tag]}%")
-    
-
-    
+        
     # .where(tag_id: params[:search][:tag])
     
     @tags = Tag.all
