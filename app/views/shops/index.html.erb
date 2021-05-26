@@ -9,42 +9,53 @@
           <th>関東</th>
         </tr>
         <tr>
-          <td><%= f.check_box :prefecture, {multiple: true}, '東京', false%>
+          <td><%= f.radio_button  :prefecture, "東京" %>
             <%= f.label :prefecture, "東京" %>
           </td>
         </tr>
         <tr>
-          <td><%= f.check_box :prefecture, {multiple: true}, '神奈川', false%>
+          <td><%= f.radio_button :prefecture, "神奈川" %>
             <%= f.label :prefecture, "神奈川" %></td>
         </tr>
         <tr>
-          <td><%= f.check_box :prefecture, {multiple: true}, '埼玉', false%>
+          <td><%= f.radio_button :prefecture, "埼玉" %>
             <%= f.label :prefecture, "埼玉" %></td>
         </tr>
         <tr>
-          <td><%= f.check_box :prefecture, {multiple: true}, '千葉', false%>
+          <td><%= f.radio_button :prefecture, "千葉" %>
             <%= f.label :prefecture, "千葉" %></td>
         </tr>
         <tr>
-          <td><%= f.check_box :prefecture, {multiple: true}, '茨城', false%>
+          <td><%= f.radio_button :prefecture, "茨城" %>
             <%= f.label :prefecture, "茨城" %></td>
         </tr>
         <tr>
-          <td><%= f.check_box :prefecture, {multiple: true}, '栃木', false%>
+          <td><%= f.radio_button :prefecture, "栃木" %>
             <%= f.label :prefecture, "栃木" %></td>
         <tr>
-          <td><%= f.check_box :prefecture, {multiple: true}, '群馬', false%>
+          <td><%= f.radio_button :prefecture, "群馬" %>
             <%= f.label :prefecture, "群馬" %></td>
         </tr>
+
 
         <tr>
           <th>特徴タグ</th>
         </tr>
+        <%= f.collection_check_boxes :tag, Tag.all, :id, :name , include_hidden: false do |b| %>
+        <tr>
+          <td><%= b.label { b.check_box + b.text } %></td>
+        </tr>
+        <% end %>
+
+        <%
+=begin%>
         <% @tags.each do |tag| %>
         <tr>
           <td><%= f.check_box :tag, {multiple: true}, tag.id, nil %><%= f.label :tag, tag.name %></td>
         </tr>
         <% end %>
+        <%
+=end%>
         <tr>
           <td><%= f.submit "検索"%></td>
         </tr>

@@ -79,4 +79,7 @@ Rails.application.routes.draw do
   post 'users/login_sample', to: 'user_sessions#sample_user', as: 'sample_user'
   delete 'users/logout', to: 'user_sessions#logout', as: 'user_logout'
 
+  # tag_to_shops
+  delete 'shops/:id/tag/:id/delete', to: 'tag_to_shops#delete', as: 'tag_delete'
+
 end

@@ -11,8 +11,8 @@
   <p>基本料金：<%= @shop.price %>
   <p>紹介文：<%= @shop.content %>
   <p>特徴タグ：
-    <% if @tag%>
-    <% @tag.each do |tag| %>
+    <% if @tags %>
+    <% @tags .each do |tag| %>
     <%= tag.name %>
     <% end %>
     <% end %>

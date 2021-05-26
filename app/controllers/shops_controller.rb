@@ -19,6 +19,11 @@ class ShopsController < ApplicationController
     set_business_time   
     end
     if @shop.save
+      # @shopを保存できたら、tag_to_shopテーブルにタグも保存
+      params[:shop][:tag].each do |tag|
+        shop_tag = TagToShop.new(shop_id: @shop.id, tag_id: tag)
+        shop_tag.save
+      end
       flash[:success] = "店舗登録されました"
       redirect_to s_show_path(@shop)
     else
@@ -28,7 +33,7 @@ class ShopsController < ApplicationController
 
   def show
     @owner = @shop.owner
-    @tags = @shop.tag
+    @tags = @shop.tags
   end
 
   def edit
@@ -37,6 +42,10 @@ class ShopsController < ApplicationController
   def update
     set_business_time
     if @shop.update(shop_params)
+      params[:shop][:tag].each do |tag|
+        shop_tag = TagToShop.new(shop_id: @shop.id, tag_id: tag)
+        shop_tag.save
+      end
       flash[:success] = "店舗情報は更新されました"
       redirect_to s_show_path(@shop)
     else
@@ -55,11 +64,14 @@ class ShopsController < ApplicationController
   end
 
   def select_prefecture
-    
-    p params
-      
-    prefecture_params = params.permit(prefecture: [])
-    @shops = Shop.where('prefecture LIKE ?', "%#{params[:prefecture]}}%")
+    # 後ほど、if文削除
+    if params[:tag] 
+      @shops = Shop.where("prefecture LIKE ?", "%#{params[:prefecture]}%").joins(:tag_to_shops).where(tag_to_shops: {tag_id: params[:tag]})
+    else
+      @shops = Shop.where("prefecture LIKE ?", "%#{params[:prefecture]}%")
+    end
+
+    p params[:tag]
     # @shops = Shop.search(@search_params).includes(:tag)
     # tag_params = params.permit(:tag)
     
@@ -67,8 +79,6 @@ class ShopsController < ApplicationController
     # joins(:tag_to_shops).where('tag_id LIKE ?', "%#{params[:search][:tag]}%")
         
     # .where(tag_id: params[:search][:tag])
-    
-    @tags = Tag.all
 
     # pre_shops = Shop.where(prefecture: params[:prefecture])
     # @shops = tag_shops & pre_shops
@@ -214,7 +224,7 @@ class ShopsController < ApplicationController
   private
 
     def shop_params
-      params.require(:shop).permit(:name, :prefecture, :city, :address, :tel, :station, :capacity, :image, :price, :content, :zip_code, :start_time, :end_time)
+      params.require(:shop).permit(:name, :prefecture, :city, :address, :tel, :station, :capacity, :image, :price, :content, :zip_code, :start_time, :end_time, :tag, tag_to_shops_attributes: [:id, :tag_id, :shop_id])
     end
 
     def set_shop
