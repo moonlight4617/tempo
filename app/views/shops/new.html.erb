@@ -33,7 +33,7 @@
     <%= f.label :content, "詳細説明" %>
     <%= f.text_area :content, class: "form-control" %><br>
 
-    <%= f.collection_check_boxes :tag, Tag.all, :id, :name , include_hidden: false do |b| %>
+    <%= f.collection_check_boxes :tags, Tag.all, :id, :name , include_hidden: false do |b| %>
     <%= b.label { b.check_box + b.text } %>
     <% end %>
 

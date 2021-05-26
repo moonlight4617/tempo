@@ -20,7 +20,7 @@ class ShopsController < ApplicationController
     end
     if @shop.save
       # @shopを保存できたら、tag_to_shopテーブルにタグも保存
-      params[:shop][:tag].each do |tag|
+      params[:shop][:tags].each do |tag|
         shop_tag = TagToShop.new(shop_id: @shop.id, tag_id: tag)
         shop_tag.save
       end
@@ -42,7 +42,7 @@ class ShopsController < ApplicationController
   def update
     set_business_time
     if @shop.update(shop_params)
-      params[:shop][:tag].each do |tag|
+      params[:shop][:tags].each do |tag|
         shop_tag = TagToShop.new(shop_id: @shop.id, tag_id: tag)
         shop_tag.save
       end
@@ -65,24 +65,13 @@ class ShopsController < ApplicationController
 
   def select_prefecture
     # 後ほど、if文削除
-    if params[:tag] 
-      @shops = Shop.where("prefecture LIKE ?", "%#{params[:prefecture]}%").joins(:tag_to_shops).where(tag_to_shops: {tag_id: params[:tag]})
+    if params[:tags] 
+      @shops = Shop.where("prefecture LIKE ?", "%#{params[:prefecture]}%").joins(:tag_to_shops).where(tag_to_shops: {tag_id: params[:tags]})
     else
       @shops = Shop.where("prefecture LIKE ?", "%#{params[:prefecture]}%")
     end
 
-    p params[:tag]
-    # @shops = Shop.search(@search_params).includes(:tag)
-    # tag_params = params.permit(:tag)
-    
-    
-    # joins(:tag_to_shops).where('tag_id LIKE ?', "%#{params[:search][:tag]}%")
-        
-    # .where(tag_id: params[:search][:tag])
-
-    # pre_shops = Shop.where(prefecture: params[:prefecture])
-    # @shops = tag_shops & pre_shops
-    
+    p params[:tags]    
     render 'index'
   
   end
@@ -224,7 +213,7 @@ class ShopsController < ApplicationController
   private
 
     def shop_params
-      params.require(:shop).permit(:name, :prefecture, :city, :address, :tel, :station, :capacity, :image, :price, :content, :zip_code, :start_time, :end_time, :tag, tag_to_shops_attributes: [:id, :tag_id, :shop_id])
+      params.require(:shop).permit(:name, :prefecture, :city, :address, :tel, :station, :capacity, :image, :price, :content, :zip_code, :start_time, :end_time, :tags, tag_to_shops_attributes: [:id, :tag_id, :shop_id])
     end
 
     def set_shop

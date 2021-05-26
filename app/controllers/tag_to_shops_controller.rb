@@ -10,6 +10,10 @@ class TagToShopsController < ApplicationController
   def delete
     tag = TagToShop.find_by(shop_id: params[:id], tag_id: params[:tag_id])
     tag.delete
-    redirect_to s_edit_path(id: params[:id])
+
+    respond_to do |format|
+      format.js
+    end
+    binding.pry
   end
 end

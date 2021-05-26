@@ -41,7 +41,7 @@
         <tr>
           <th>特徴タグ</th>
         </tr>
-        <%= f.collection_check_boxes :tag, Tag.all, :id, :name , include_hidden: false do |b| %>
+        <%= f.collection_check_boxes :tags, Tag.all, :id, :name , include_hidden: false do |b| %>
         <tr>
           <td><%= b.label { b.check_box + b.text } %></td>
         </tr>
