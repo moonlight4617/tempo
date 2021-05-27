@@ -46,16 +46,6 @@
           <td><%= b.label { b.check_box + b.text } %></td>
         </tr>
         <% end %>
-
-        <%
-=begin%>
-        <% @tags.each do |tag| %>
-        <tr>
-          <td><%= f.check_box :tag, {multiple: true}, tag.id, nil %><%= f.label :tag, tag.name %></td>
-        </tr>
-        <% end %>
-        <%
-=end%>
         <tr>
           <td><%= f.submit "検索"%></td>
         </tr>
@@ -78,8 +68,9 @@
               <% end %>
               <div class="row">
                 <div class="col-12">
-                  <p class="mt-2"><%= shop.name %></p>
-                  <%= link_to "店舗詳細", s_show_path(shop) %>
+                  <p class="mt-2"><%= shop.name %>
+                    <hr>
+                    <%= link_to "店舗詳細", s_show_path(shop) %>
                 </div>
               </div>
             </div>

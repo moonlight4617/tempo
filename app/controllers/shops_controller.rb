@@ -18,12 +18,15 @@ class ShopsController < ApplicationController
     if params[:shop][:start_time] != "" && params[:shop][:end_time] != ""
     set_business_time   
     end
-    if @shop.save
       # @shopを保存できたら、tag_to_shopテーブルにタグも保存
+    if @shop.save && params[:shop][:tags]
       params[:shop][:tags].each do |tag|
         shop_tag = TagToShop.new(shop_id: @shop.id, tag_id: tag)
         shop_tag.save
       end
+      flash[:success] = "店舗登録されました"
+      redirect_to s_show_path(@shop)
+    elsif @shop.save
       flash[:success] = "店舗登録されました"
       redirect_to s_show_path(@shop)
     else
