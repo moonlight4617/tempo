@@ -10,10 +10,9 @@ class TagToShopsController < ApplicationController
   def delete
     tag = TagToShop.find_by(shop_id: params[:id], tag_id: params[:tag_id])
     tag.delete
-
+    @shop = Shop.find_by(id: params[:id])
     respond_to do |format|
-      format.js
+      format.js { render :delete }
     end
-    binding.pry
   end
 end

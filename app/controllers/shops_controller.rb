@@ -41,11 +41,14 @@ class ShopsController < ApplicationController
 
   def update
     set_business_time
-    if @shop.update(shop_params)
+    if @shop.update(shop_params) && params[:shop][:tags]
       params[:shop][:tags].each do |tag|
         shop_tag = TagToShop.new(shop_id: @shop.id, tag_id: tag)
         shop_tag.save
       end
+      flash[:success] = "店舗情報は更新されました"
+      redirect_to s_show_path(@shop)
+    elsif @shop.update(shop_params)
       flash[:success] = "店舗情報は更新されました"
       redirect_to s_show_path(@shop)
     else
@@ -56,7 +59,8 @@ class ShopsController < ApplicationController
   def destroy
     @shop.del_flg = 1
     @shop.save
-    redirect_to s_index_path
+    flash[:success] = "店舗は削除されました"
+    redirect_to root_path
   end
 
   def zip
