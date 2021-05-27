@@ -13,7 +13,9 @@
   <p>特徴タグ：
     <% if @tags %>
     <% @tags .each do |tag| %>
-    <%= tag.name %>
+    <span class="badge rounded-pill bg-secondary text-white">
+      <%= tag.name %>
+    </span>
     <% end %>
     <% end %>
     <br>
