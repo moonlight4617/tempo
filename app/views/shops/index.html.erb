@@ -1,84 +1,127 @@
-<h3>店舗一覧</h3>
-<div container-fluid>
+<div class="container-fluid">
   <div class="row">
-    <div class="col-3">
-      <table class="table">
+    <div class="page-wrapper chiller-theme">
 
-        <%= form_with model: @shop, url: s_pref_path, local: true, method: 'get' do |f| %>
-        <tr>
-          <th>関東</th>
-        </tr>
-        <tr>
-          <td><%= f.radio_button  :prefecture, "東京" %>
-            <%= f.label :prefecture, "東京" %>
-          </td>
-        </tr>
-        <tr>
-          <td><%= f.radio_button :prefecture, "神奈川" %>
-            <%= f.label :prefecture, "神奈川" %></td>
-        </tr>
-        <tr>
-          <td><%= f.radio_button :prefecture, "埼玉" %>
-            <%= f.label :prefecture, "埼玉" %></td>
-        </tr>
-        <tr>
-          <td><%= f.radio_button :prefecture, "千葉" %>
-            <%= f.label :prefecture, "千葉" %></td>
-        </tr>
-        <tr>
-          <td><%= f.radio_button :prefecture, "茨城" %>
-            <%= f.label :prefecture, "茨城" %></td>
-        </tr>
-        <tr>
-          <td><%= f.radio_button :prefecture, "栃木" %>
-            <%= f.label :prefecture, "栃木" %></td>
-        <tr>
-          <td><%= f.radio_button :prefecture, "群馬" %>
-            <%= f.label :prefecture, "群馬" %></td>
-        </tr>
+      <!---サイドバー--->
+      <!---ボタン---->
+      <a id="show-sidebar" class="btn btn-md" href="#">
+        <i class="fas fa-bars"></i>
+      </a>
+      <!---ボタン--->
 
+      <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+          <div class="sidebar-brand">
+            <div id="close-sidebar">
+              <i class="fas fa-times"></i>
+            </div>
+          </div>
 
-        <tr>
-          <th>特徴タグ</th>
-        </tr>
-        <%= f.collection_check_boxes :tags, Tag.all, :id, :name , include_hidden: false do |b| %>
-        <tr>
-          <td><%= b.label { b.check_box + b.text } %></td>
-        </tr>
-        <% end %>
-        <tr>
-          <td><%= f.submit "検索"%></td>
-        </tr>
-        <% end %>
-      </table>
-    </div>
+          <!-- 検索メニュー -->
+          <table class="table">
+            <%= form_with model: @shop, url: s_pref_path, local: true, method: 'get' do |f| %>
+            <tr>
+              <th id="side-title" class="text-center">絞り込み検索</th>
+            </tr>
+            <tr>
+              <th id="side-item">関東</th>
+            </tr>
+            <tr>
+              <td><%= f.radio_button  :prefecture, "東京" %>
+                <%= f.label :prefecture, "東京" %>
+              </td>
+            </tr>
+            <tr>
+              <td><%= f.radio_button :prefecture, "神奈川" %>
+                <%= f.label :prefecture, "神奈川" %></td>
+            </tr>
+            <tr>
+              <td><%= f.radio_button :prefecture, "埼玉" %>
+                <%= f.label :prefecture, "埼玉" %></td>
+            </tr>
+            <tr>
+              <td><%= f.radio_button :prefecture, "千葉" %>
+                <%= f.label :prefecture, "千葉" %></td>
+            </tr>
+            <tr>
+              <td><%= f.radio_button :prefecture, "茨城" %>
+                <%= f.label :prefecture, "茨城" %></td>
+            </tr>
+            <tr>
+              <td><%= f.radio_button :prefecture, "栃木" %>
+                <%= f.label :prefecture, "栃木" %></td>
+            <tr>
+              <td><%= f.radio_button :prefecture, "群馬" %>
+                <%= f.label :prefecture, "群馬" %></td>
+            </tr>
+            <tr>
+              <th id="side-item">特徴タグ</th>
+            </tr>
+            <%= f.collection_check_boxes :tags, Tag.all, :id, :name , include_hidden: false do |b| %>
+            <tr>
+              <td><%= b.label { b.check_box + b.text } %></td>
+            </tr>
+            <% end %>
+            <tr>
+              <td class="text-center"><%= f.submit "検索", id: "search-submit", class: "btn"%></td>
+            </tr>
+            <% end %>
+          </table>
+          <!--- 検索メニュー --->
 
+        </div>
+      </nav>
+      <!---サイドバー--->
 
-    <div class="col-9">
-      <div class="row">
-        <div class="container mt-4">
-          <div class="row w-100">
-            <% @shops.each do |shop| %>
-            <% if shop.del_flg != 1 %>
-            <div class="col-3">
-              <% if shop.image? %>
+      <!---店舗一覧--->
+      <div class="container mt-4">
+        <div class="row">
+          <% @shops.each do |shop| %>
+          <% if shop.del_flg != 1 %>
+          <div class="col-lg-4">
+            <div id="shop-card" class="card mb-5">
               <%= link_to s_show_path(shop) do %>
-              <%= image_tag shop.image.url, class: 'img-thumbnail' %>
+              <%= image_tag shop.image.url, id: "shop-thumbnail", class: "img-fluid" %>
               <% end %>
-              <% end %>
-              <div class="row">
-                <div class="col-12">
-                  <p class="mt-2"><%= shop.name %>
-                    <hr>
-                    <%= link_to "店舗詳細", s_show_path(shop) %>
+              <div class="card-body">
+                <h5 class="card-title"><%= shop.name %></h5>
+                <p><%= shop.station %>駅</p>
+                <p>基本料金：¥ <%= shop.price %>/h</p>
+                <p>特徴タグ：<% shop.tags.each do |tag| %>
+                  <span id="tag" class="badge rounded-pill text-white">
+                    <%= tag.name %>
+                  </span>
+                  <% end %>
+                </p>
+                <div class="text-right">
+                  <%= link_to "店舗詳細 > ", s_show_path(shop), id: "show-shop", class: "btn mt-1" %>
                 </div>
               </div>
             </div>
-            <% end %>
-            <% end %>
           </div>
+          <% end %>
+          <% end %>
         </div>
       </div>
+      <!---店舗一覧--->
+
+      <!---ページネーション--->
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center pt-4">
+          <%= paginate @shops %>
+        </ul>
+      </nav>
+      <!---ページネーション--->
+
     </div>
   </div>
 </div>
+
+<script>
+  $("#show-sidebar").click(function() {
+    $(".page-wrapper").addClass("toggled");
+  });
+  $("#close-sidebar").click(function() {
+    $(".page-wrapper").removeClass("toggled");
+  });
+</script>

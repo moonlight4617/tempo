@@ -1,10 +1,8 @@
 class TagToShopsController < ApplicationController
   def new
-
   end
 
   def create
-
   end
 
   def delete

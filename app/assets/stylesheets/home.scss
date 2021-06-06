@@ -1,5 +1,29 @@
 @charset "UTF-8";
 
+#header{
+  background-color: #ecd078;
+}
+
+#body{
+  background-color: #ecd078;
+}
+
+#shop-card{
+  background-color: #fff;
+}
+
+#contact{
+  background-color: #53777a;
+}
+
+#tomember{
+  color: #fff;
+}
+
+.sentence{
+  line-height: 1.4;
+}
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -65,7 +89,6 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #fff;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -499,15 +522,6 @@ mark,
 }
 
 .img-fluid {
-  max-width: 100%;
-  height: auto;
-}
-
-.img-thumbnail {
-  padding: 0.25rem;
-  background-color: #fff;
-  border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
   max-width: 100%;
   height: auto;
 }
