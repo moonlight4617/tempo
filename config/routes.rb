@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'owners/edit', to: 'owners#edit', as: 'o_edit'
   get 'owners/about', to: 'owners#about', as: 'o_about'
   post 'owners/new', to: 'owners#create', as: 'o_create'
-  patch 'owners/edit', to: 'owners#update'
+  patch 'owners/edit', to: 'owners#update', as: 'o_update'
   patch 'owners/delete', to: 'owners#destroy', as: 'o_destroy'
   
   #shops
@@ -37,20 +37,14 @@ Rails.application.routes.draw do
   delete 'shops/:id/remove_reservation_frame', to: 'shops#remove_reservation_frame', as: 's_remove_res'
   
   # chats
+  get 'shops/chats/user_index', to: 'chats#index_for_user', as: 'ch_index_user' 
   get 'shops/:id/chats/new', to: 'chats#new', as: 'ch_new' 
   get 'shops/:id/chats/', to: 'chats#show', as: 'ch_show' 
   get 'shops/:id/chats/show_for_ow', to: 'chats#show_for_owner', as: 'ch_show_owner' 
-  get 'shops/:id/chats/index', to: 'chats#index_for_owner', as: 'ch_index_owner' 
+  get 'shops/:id/chats/owner_index', to: 'chats#index_for_owner', as: 'ch_index_owner' 
   post 'shops/:id/chats/msg', to: 'chats#message', as: 'ch_msg' 
   post 'shops/:id/chats/msg_owner', to: 'chats#message_from_shop', as: 'ch_msg_shop' 
   delete 'shops/:id/chats/:id/delete', to: 'chats#destroy', as: 'ch_d' 
-  
-  # messages
-  # get 'shops/:id/messages/index', to: 'messages#index', as: 'm_index' 
-  # get 'shops/:id/messages/new', to: 'messages#new', as: 'm_new' 
-  # get 'shops/:id/messages/:id', to: 'messages#show', as: 'm_show' 
-  # post 'shops/:id/messages/new', to: 'messages#create', as: 'm_create' 
-  # delete 'shops/:id/messages/:id/delete', to: 'messages#destroy', as: 'm_destroy' 
 
   #calendars
   get 'shops/calendars/index', to: 'calendars#index_for_user', as: 'c_index'
@@ -79,4 +73,22 @@ Rails.application.routes.draw do
   post 'users/login_sample', to: 'user_sessions#sample_user', as: 'sample_user'
   delete 'users/logout', to: 'user_sessions#logout', as: 'user_logout'
 
+  # tag_to_shops
+  delete 'shops/:id/tag/:id/delete', to: 'tag_to_shops#delete', as: 'tag_delete'
+
+  # admin_user
+  get 'admin/user_index', to: 'admin#user_index', as: 'admin_user'
+  get 'admin/user_individual', to: 'admin#user_individual', as: 'admin_user_ind'
+  get 'admin/user_edit', to: 'admin#user_edit', as: 'admin_user_edit'
+  patch 'admin/user_update', to: 'admin#user_update', as: 'admin_user_update'
+  patch 'admin/user_destroy', to: 'admin#user_destroy', as: 'admin_user_destroy'
+
+  # admin_owner&shop
+  get 'admin/owner_index', to: 'admin#owner_index', as: 'admin_owner'
+  get 'admin/shop_show/:id', to: 'admin#shop_show', as: 'admin_shop'
+  get 'admin/shop_edit/:id', to: 'admin#shop_edit', as: 'admin_shop_edit'
+  patch 'admin/shop_update/:id', to: 'admin#shop_update', as: 'admin_shop_update'
+  patch 'admin/shop_destroy/:id', to: 'admin#shop_destroy', as: 'admin_shop_destroy'
+
+  get 'test', to: 'home#test', as: 'test'
 end

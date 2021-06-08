@@ -3,9 +3,11 @@ class ShopsController < ApplicationController
   before_action :set_owner, only: [:create, :show]
   before_action :before_login_owner, only: [:new, :create, :edit, :update, :destroy]
   before_action :correct_owner, only: [:edit, :update, :destroy]
+
+  include UserSessionsHelper
   
   def index
-    @shops = Shop.all
+    @shops = Shop.all.includes(:tags).page(params[:page]).per(50)
     @tags = Tag.all
   end
 
@@ -18,7 +20,18 @@ class ShopsController < ApplicationController
     if params[:shop][:start_time] != "" && params[:shop][:end_time] != ""
     set_business_time   
     end
-    if @shop.save
+    unless params[:shop][:image]
+      @shop.image = "shop_noimage.jpg"
+    end
+      # @shopを保存できたら、tag_to_shopテーブルにタグも保存
+    if @shop.save && params[:shop][:tags]
+      params[:shop][:tags].each do |tag|
+        shop_tag = TagToShop.new(shop_id: @shop.id, tag_id: tag)
+        shop_tag.save
+      end
+      flash[:success] = "店舗登録されました"
+      redirect_to s_show_path(@shop)
+    elsif @shop.save
       flash[:success] = "店舗登録されました"
       redirect_to s_show_path(@shop)
     else
@@ -28,6 +41,7 @@ class ShopsController < ApplicationController
 
   def show
     @owner = @shop.owner
+    @tags = @shop.tags
   end
 
   def edit
@@ -35,67 +49,52 @@ class ShopsController < ApplicationController
 
   def update
     set_business_time
-    if @shop.update(shop_params)
+    if @shop.update(shop_params) && params[:shop][:tags]
+      params[:shop][:tags].each do |tag|
+        shop_tag = TagToShop.new(shop_id: @shop.id, tag_id: tag)
+        shop_tag.save
+      end
+      flash[:success] = "店舗情報は更新されました"
+      redirect_to s_show_path(@shop)
+    elsif @shop.update(shop_params)
       flash[:success] = "店舗情報は更新されました"
       redirect_to s_show_path(@shop)
     else
       render 'edit'
     end
+    
   end
 
   def destroy
     @shop.del_flg = 1
     @shop.save
-    redirect_to s_index_path
+    flash[:success] = "店舗は削除されました"
+    redirect_to root_path
   end
 
   def zip
-    p params
   end
 
   def select_prefecture
-    
-    p params
-      
-    prefecture_params = params.permit(prefecture: [])
-    @shops = Shop.where('prefecture LIKE ?', "%#{params[:prefecture]}}%")
-    # @shops = Shop.search(@search_params).includes(:tag)
-    # tag_params = params.permit(:tag)
-    
-    binding.pry
-    
-    
-    # joins(:tag_to_shops).where('tag_id LIKE ?', "%#{params[:search][:tag]}%")
-    
-
-    
-    # .where(tag_id: params[:search][:tag])
-    
-    @tags = Tag.all
-
-    # pre_shops = Shop.where(prefecture: params[:prefecture])
-    # @shops = tag_shops & pre_shops
-    
-    render 'index'
-  
+    if params[:tags] 
+      @shops = Shop.where("prefecture LIKE ?", "%#{params[:prefecture]}%").joins(:tag_to_shops).where(tag_to_shops: {tag_id: params[:tags]})
+    else
+      @shops = Shop.where("prefecture LIKE ?", "%#{params[:prefecture]}%")
+    end
   end
 
   def create_business_time
   end
 
-  # オーナーが予約開放する際のカレンダー表示
+  # オーナーが予約開放する際に見るカレンダー表示
   def reservation_frame
-    # available_days?
-    # a_days = Available.where(shop_id: @shop.id)
-    # a_days.each do |day|
-    #   @available_days.push("#{day.rent_date}, #{day.start_time}:00:00")
-    # end
     set_available_days
     @today = Date.today
     call_business_time
     set_calendar
   end
 
+  # オーナーが予約開放した日時をAvailableテーブルに格納
   def set_reservation_frame
     start_time = params[:start_time].to_i
     end_time = params[:end_time].to_i
@@ -108,9 +107,6 @@ class ShopsController < ApplicationController
       start_time += 1
     end
     respond_to do |format|
-      # if @available.save
-        # day = params[:rent_date] + ", " + start_time
-        # @available_days.push(day)
       set_available_days
       session.delete(:day)
       @today = Date.today
@@ -118,12 +114,6 @@ class ShopsController < ApplicationController
       set_calendar
       format.html { redirect_to s_res_path(params[:id]) }
       format.js { @status = "success"}
-      # else
-      #   flash[:danger] = "有効な日付を入力してください"
-      #   format.html { render 'reservation_frame' }
-      #   format.js { @status = "fail" }
-      # end
-      # render 'reservation_frame'
     end
   end
 
@@ -217,7 +207,8 @@ class ShopsController < ApplicationController
   private
 
     def shop_params
-      params.require(:shop).permit(:name, :prefecture, :city, :address, :tel, :station, :capacity, :image, :price, :content, :zip_code, :start_time, :end_time)
+      # tag_to_shops_attributes必要ない？
+      params.require(:shop).permit(:name, :prefecture, :city, :address, :tel, :station, :capacity, :image, :price, :content, :zip_code, :start_time, :end_time, :tags, tag_to_shops_attributes: [:id, :tag_id, :shop_id])
     end
 
     def set_shop
@@ -231,11 +222,15 @@ class ShopsController < ApplicationController
     def correct_owner
       set_shop
       set_owner
-      if @shop.owner != @owner
+      if current_user.admin == 1
+        true
+      elsif @shop.owner != @owner
+        flash[:danger] = "オーナー権限がありません"
         redirect_to root_path
       end
     end
 
+    # 店側がカレンダーに表示させる時間帯を登録する場合の処理
     def set_business_time
       if params[:shop][:start_time] != "" && params[:shop][:end_time] != ""
         s_time = params[:shop][:start_time].to_i
@@ -249,18 +244,20 @@ class ShopsController < ApplicationController
       end
     end
 
+    # カレンダーに表示する時間帯を呼び出す
     def call_business_time
-      if @shop.business_time 
-        able_time = @shop.business_time
-        slim_time = able_time.split(",")
-        slim_time[0] = slim_time.first.delete("[")
-        slim_time[-1] = slim_time.last.delete("]")
-        @able_time = slim_time
-      else
-        @able_time = (9..23).to_a
-      end
+      # if @shop.business_time 
+      #   able_time = @shop.business_time
+      #   slim_time = able_time.split(",")
+      #   slim_time[0] = slim_time.first.delete("[")
+      #   slim_time[-1] = slim_time.last.delete("]")
+      #   @able_time = slim_time
+      # else
+        @able_time = (1..24).to_a
+      # end
     end
 
+    # カレンダーを本日日付から始めるための処理
     def set_calendar
       @year = @today.year
       @year_month = "#{@today.year} / #{@today.month}"
@@ -269,17 +266,14 @@ class ShopsController < ApplicationController
         w = @today + i
         @week.push(w)
       end
-
       # すでに入っている予約の日時を@rentDaysとして取得
       rent_dayTimes = Available.where(shop_id: params[:id]).pluck(:rent_date, :start_time)
       @t = []
       @rentDays = []
-
       rent_dayTimes.each do |dayTime|
         s_rent = "#{dayTime[0]}, #{dayTime[1]}"
         @rentDays.push(s_rent)
       end
-      
       # @tに１週間分の日付と曜日いれる
       @able_time.each do |t|
         @week.each do |w|
@@ -292,12 +286,7 @@ class ShopsController < ApplicationController
       end
     end    
 
-    # def available_days?
-    #   if @available_days == nil
-    #     @available_days = []
-    #   end
-    # end
-
+    # オーナーが開放した日時を取得
     def set_available_days
       @available_days = []
       a_days = Available.where(shop_id: @shop.id)
@@ -305,5 +294,4 @@ class ShopsController < ApplicationController
         @available_days.push("#{day.rent_date}, #{day.start_time}")
       end
     end
-
 end
