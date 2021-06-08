@@ -6,6 +6,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   storage :file
+  # デプロイ後、画像を S3に画像を保存することになった際に以下のfogをif文付きで適用
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
