@@ -21,7 +21,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
   #
     # "/images/" + [version_name, "shop_noimage.jpg"].compact.join('_')
-    "shop_noimage.jpg"
+    "/images/shop_noimage.jpg"
    end
 
   # Process files as they are uploaded:
