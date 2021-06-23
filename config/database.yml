@@ -5,7 +5,6 @@ default: &default
   timeout: 5000
   encording: utf8
   reconnect: false
-  host: localhost
   username: <%= Rails.application.credentials.db[:username] %>
 
 development:
