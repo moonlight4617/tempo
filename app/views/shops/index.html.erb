@@ -78,7 +78,7 @@
         <div class="row">
           <% @shops.each do |shop| %>
           <% if shop.del_flg != 1 %>
-          <div class="col-lg-4">
+          <div class="col-md-4">
             <div id="shop-card" class="card mb-5">
               <%= link_to s_show_path(shop) do %>
               <%= image_tag shop.image.url, id: "shop-thumbnail", class: "img-fluid" %>
