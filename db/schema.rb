@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_06_083817) do
+ActiveRecord::Schema.define(version: 2021_06_24_025511) do
 
   create_table "availables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "rent_date"
@@ -42,6 +42,27 @@ ActiveRecord::Schema.define(version: 2021_06_06_083817) do
     t.datetime "updated_at", null: false
     t.index ["shop_id"], name: "index_chats_on_shop_id"
     t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
+  create_table "evaluations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "comment"
+    t.integer "rate"
+    t.integer "toshop"
+    t.bigint "user_id"
+    t.bigint "shop_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shop_id"], name: "index_evaluations_on_shop_id"
+    t.index ["user_id"], name: "index_evaluations_on_user_id"
+  end
+
+  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "shop_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shop_id"], name: "index_favorites_on_shop_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -125,6 +146,10 @@ ActiveRecord::Schema.define(version: 2021_06_06_083817) do
   add_foreign_key "calendars", "users"
   add_foreign_key "chats", "shops"
   add_foreign_key "chats", "users"
+  add_foreign_key "evaluations", "shops"
+  add_foreign_key "evaluations", "users"
+  add_foreign_key "favorites", "shops"
+  add_foreign_key "favorites", "users"
   add_foreign_key "messages", "chats"
   add_foreign_key "tag_to_shops", "shops"
   add_foreign_key "tag_to_shops", "tags"
