@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  comment: MyText
+  rate: 1
+  toshop: 1
+  user: one
+  shop: one
+
+two:
+  comment: MyText
+  rate: 1
+  toshop: 1
+  user: two
+  shop: two

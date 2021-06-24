@@ -2,9 +2,14 @@ class CalendarsController < ApplicationController
 
 before_action :set_shop, except: :index_for_user
 
-  # ユーザーに対して、今している予約一覧の表示
+  # ユーザーに対して、過去も含めた予約一覧
   def index_for_user
     @calendars = Calendar.where(user_id: session[:user_id])
+  end
+
+  # オーナーに対して、過去も含めた予約一覧
+  def index_for_shop
+    @calendars = Calendar.where(shop_id: params[:id])
   end
 
   # ユーザーが予約する際の表示
@@ -90,7 +95,7 @@ before_action :set_shop, except: :index_for_user
     end
   end
 
-  # ユーザーに対して、今入っている予約一覧の表示
+  # ユーザーに対して、今後の予約一覧
   def s_index
     @calendars = @shop.calendars.where(user_id: session[:user_id]).where(rent_date: Date.today..Float::INFINITY)
   end

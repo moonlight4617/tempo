@@ -21,6 +21,7 @@ class OwnersController < ApplicationController
 
   def show
     @shops = @owner.shops
+    @day = Date.today - 30
   end
 
   def edit
@@ -56,8 +57,6 @@ class OwnersController < ApplicationController
       if @owner == nil || @owner.del_flg == 1
         redirect_to root_path
         flash[:warning] = "ログインまたは新規登録してください"
-      else
-        current_owner
       end
     end
 end
