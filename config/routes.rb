@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'evaluations/new'
   root to: 'home#top'
   
   #owner_sessions
@@ -38,7 +39,7 @@ Rails.application.routes.draw do
   
   # chats
   get 'shops/chats/user_index', to: 'chats#index_for_user', as: 'ch_index_user' 
-  get 'shops/:id/chats/new', to: 'chats#new', as: 'ch_new' 
+  # get 'shops/:id/chats/new', to: 'chats#new', as: 'ch_new' 
   get 'shops/:id/chats/', to: 'chats#show', as: 'ch_show' 
   get 'shops/:id/chats/show_for_ow', to: 'chats#show_for_owner', as: 'ch_show_owner' 
   get 'shops/:id/chats/owner_index', to: 'chats#index_for_owner', as: 'ch_index_owner' 
@@ -61,6 +62,9 @@ Rails.application.routes.draw do
   #users
   get 'users/new', to: 'users#new', as: 'u_new'
   get 'users/show', to: 'users#show', as: 'u_show'
+  get 'users/show_for_owner', to: 'users#show_for_owner', as: 'u_show_for_owner'
+  get 'users/my_favorite', to: 'users#my_favorite', as: 'u_favorite'
+  get 'users/comment', to: 'users#comment', as: 'u_comment'
   get 'users/edit', to: 'users#edit', as: 'u_edit'
   get 'users/about', to: 'users#about', as: 'u_about'
   post 'users/new', to: 'users#create', as: 'u_create'
@@ -79,16 +83,27 @@ Rails.application.routes.draw do
   # admin_user
   get 'admin/user_index', to: 'admin#user_index', as: 'admin_user'
   get 'admin/user_individual', to: 'admin#user_individual', as: 'admin_user_ind'
+  get 'admin/user_comment', to: 'admin#user_comment', as: 'admin_user_com'
+  get 'admin/user_reservation', to: 'admin#user_reservation', as: 'admin_user_res'
   get 'admin/user_edit', to: 'admin#user_edit', as: 'admin_user_edit'
   patch 'admin/user_update', to: 'admin#user_update', as: 'admin_user_update'
   patch 'admin/user_destroy', to: 'admin#user_destroy', as: 'admin_user_destroy'
 
   # admin_owner&shop
   get 'admin/owner_index', to: 'admin#owner_index', as: 'admin_owner'
+  get 'admin/owner_individual', to: 'admin#owner_individual', as: 'admin_owner_ind'
   get 'admin/shop_show/:id', to: 'admin#shop_show', as: 'admin_shop'
   get 'admin/shop_edit/:id', to: 'admin#shop_edit', as: 'admin_shop_edit'
   patch 'admin/shop_update/:id', to: 'admin#shop_update', as: 'admin_shop_update'
   patch 'admin/shop_destroy/:id', to: 'admin#shop_destroy', as: 'admin_shop_destroy'
 
+  # evaluations
+  get 'evaluations/:id/new', to: 'evaluations#new', as: 'e_new'
+  post 'evaluations/:id/create', to: 'evaluations#create', as: 'e_create'
+
+  # favorite
+  post 'favorite/:id/create', to: 'favorite#create', as: 'f_create'
+  delete 'favorite/:id/destroy', to: 'favorite#destroy', as: 'f_destroy'
+  
   get 'test', to: 'home#test', as: 'test'
 end
