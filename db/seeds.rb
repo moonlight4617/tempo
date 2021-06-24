@@ -20,6 +20,13 @@ User.create!(
   password: "12345678",
 )
 
+User.create!(
+  name: "田辺涼二",
+  email: "moonlight4_6_17@yahoo.co.jp",
+  password: "abbeyroad",
+  admin: 1,
+)
+
 owner = Owner.create!(
   name: "sample_owner",
   email: "sample_owner@gmail.com",
