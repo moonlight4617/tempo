@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-@prefecture = ["東京都", "神奈川県", "埼玉県", "千葉"]
+@prefecture = ["東京都", "神奈川県", "埼玉県", "千葉県"]
 shop_name = Faker::Creature::Animal.name
 zip_code = Faker::Address.zip_code
 city = Faker::Address.city
@@ -18,13 +18,6 @@ User.create!(
   name: "sample_user",
   email: "sample_user@gmail.com",
   password: "12345678",
-)
-
-User.create!(
-  name: "田辺涼二",
-  email: "moonlight4_6_17@yahoo.co.jp",
-  password: "abbeyroad",
-  admin: 1,
 )
 
 owner = Owner.create!(
@@ -55,12 +48,12 @@ Shop.create!(
   )
   Shop.create!(
     owner_id: owner.id,
-    name: shop_name,
-    zip_code: zip_code,
+    name: Faker::Creature::Animal.name,
+    zip_code: Faker::Address.zip_code,
     prefecture: @prefecture[Faker::Number.within(range: 0..4)],
-    city: city,
-    tel: tel,
-    station: station,
+    city: Faker::Address.city,
+    tel: Faker::PhoneNumber.phone_number,
+    station: Faker::Mountain.name,
   )
 end
 
