@@ -2,7 +2,7 @@ class User < ApplicationRecord
   attr_accessor :remember_token
   has_secure_password
   mount_uploader :image, ImageUploader
-  has_many :calendars
+  has_many :calendars, foreign_key: :user_id, dependent: :destroy
   has_many :chats, foreign_key: :user_id, dependent: :destroy
   has_many :evaluations, foreign_key: :user_id, dependent: :destroy
   has_many :favorites, foreign_key: :user_id, dependent: :destroy

@@ -45,7 +45,7 @@ class UserSessionsController < ApplicationController
   end
 
   def sample_user
-    @user = User.find(7)
+    @user = User.find_by(email: "sample_user@gmail.com")
     session[:user_id] = @user.id
     if session[:owner_id]
       @owner = Owner.find(session[:owner_id])

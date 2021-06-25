@@ -93,8 +93,6 @@ GEM
     erubi (1.10.0)
     excon (0.82.0)
     execjs (2.7.0)
-    faker (2.18.0)
-      i18n (>= 1.6, < 2)
     ffi (1.15.0)
     fog-aws (3.10.0)
       fog-core (~> 2.1)
@@ -314,7 +312,6 @@ DEPENDENCIES
   carrierwave
   chromedriver-helper
   coffee-rails (~> 4.2)
-  faker
   fog-aws
   guard
   guard-minitest
