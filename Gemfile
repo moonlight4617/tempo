@@ -45,7 +45,7 @@ gem 'public_uid'
 
 gem 'rails-i18n'
 
-gem 'faker'
+# gem 'faker'
 
 gem 'kaminari'
 

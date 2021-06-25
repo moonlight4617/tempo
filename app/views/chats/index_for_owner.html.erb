@@ -1,8 +1,12 @@
-<h3>質問メッセージ 一覧</h3>
+<h3 class="text-center">質問メッセージ 一覧</h3>
+<% if @chats.present? %>
 <% @chats.each do |chat| %>
 <% user = chat.user %>
 <ul>
-  <li><%= link_to "#{user.name }とのメッセージ", ch_show_owner_path(chat.shop, chat_id: chat.id) %></li>
+  <li><%= link_to "#{user.name }とのメッセージ", ch_show_owner_path(chat.shop, user_id: chat.user) %></li>
   <%= chat.messages.last.content %>
 </ul>
+<% end %>
+<% else %>
+＜メッセージはありません＞
 <% end %>
