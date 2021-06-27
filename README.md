@@ -53,7 +53,4 @@ http://ec2-52-199-214-132.ap-northeast-1.compute.amazonaws.com/
   Rails 5.2.5
   
 # ER図
-  現在準備中です。
-  
-# 画面遷移図 (一部抜粋)
-  現在準備中です。
+  ![ER図_tempo](https://user-images.githubusercontent.com/70841616/123532349-73c6f280-d747-11eb-8b19-460e4b0fbdf0.png)
