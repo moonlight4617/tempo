@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class FavoriteControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  # create、destroyが正しく挙動するか
+  # before_actionがきいているか
 end
