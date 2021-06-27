@@ -6,7 +6,7 @@ class UserSessionsControllerTest < ActionDispatch::IntegrationTest
     @user = User.create(name: "Example User", email: "user@example.com", password: "123456", password_confirmation: "123456")
   end
 
-  test "valid screen transition after logged in" do
+  test "ログイン出来た場合、画像一覧に遷移しているか" do
     get user_login_path
     post user_logged_in_path, params: { user_session: { email: "user@example.com", password: "123456" } }
     assert_redirected_to s_index_path
