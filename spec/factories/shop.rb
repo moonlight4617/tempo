@@ -1,6 +1,6 @@
 # FactoryBot.define do 
 #   factory :shop do
-#     name { "テスト店舗" }
+#     name { "テスト店舗A" }
 #     zip_code { "100-1000" }
 #     prefecture { "東京都" }
 #     city { "東京" }
