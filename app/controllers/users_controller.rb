@@ -15,6 +15,7 @@ class UsersController < ApplicationController
       flash[:success] = "ユーザー登録されました"
       redirect_to u_show_path(@user)
     else
+      flash[:warning] = "登録情報が正しく入力されていません"
       render 'new'
     end
   end

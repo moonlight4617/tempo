@@ -1,18 +1,57 @@
-<h3>確認</h3>
-<% @reservation_days = [] %>
-<% @candidate_days.each.with_index do |day, i| %>
-<% splited_day = day.split %>
-<% splited_day[0].slice!(-1)%>
-<% time = Time.parse(splited_day[1]) %>
-<h4><%= "候補#{i+1}" %></h4>
-<li>日付：<%= splited_day[0] %></li>
-<li>時刻：<%= time.strftime("%H:%M") %></li>
-<% @reservation_days.push(splited_day[0]) %>
-<% @reservation_days.push(splited_day[1]) %>
-<% end %>
-<%= form_for(:calendar, url: {controller: 'calendars', action: 'create'}) do |f| %>
-<%= f.hidden_field :candidate_days, value: @reservation_days %>
-<%= f.submit "上記の日時で申し込む"%>
-<% end %>
-<%= button_to "日時選択画面へ戻る", c_new_path, method: :get %>
-<%= link_to "店舗に質問を送る", ch_show_path %>
+<div class="container">
+  <div class="col-lg-6 col-md-8 col-sm-10 mx-auto">
+    <h3 class="text-center">日時確認</h3>
+    <% @reservation_days = [] %>
+    <% @candidate_days.each.with_index do |day, i| %>
+    <div class="my-4">
+      <% splited_day = day.split %>
+      <% splited_day[0].slice!(-1)%>
+      <% time = Time.parse(splited_day[1]) %>
+      <h4><%= "候補#{i+1}" %></h4>
+      <li>日付：<%= splited_day[0] %></li>
+      <li>時刻：<%= time.strftime("%H:%M") %></li>
+      <% @reservation_days.push(splited_day[0]) %>
+      <% @reservation_days.push(splited_day[1]) %>
+    </div>
+    <% end %>
+    <%= form_with model: @calendar, url: c_create_path, local: "true" do |f| %>
+    <%= f.hidden_field :candidate_days, value: @reservation_days %>
+    <div class="row">
+      <div class="col-md-6 col-sm-10 mx-auto text-center py-0">
+
+        <!--- modal --->
+        <button type="button" class="btn btn-light mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          上記の日程で申し込む
+        </button>
+      </div>
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title ml-auto" id="staticBackdropLabel">注意事項</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <ul>
+                <li>料金は当日、店舗様に直接お支払いください。</li>
+                <li>当日の流れや、注意事項について店舗様とご確認ください</li>
+              </ul>
+              <p class="text-center py-0">上記の点を踏まえて申込みします</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+              <%= f.submit "申込む", class: "btn btn-warning"%>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-10 mx-auto text-center py-0">
+        <%= link_to "日時選択画面へ戻る", c_new_path, method: :get, class: "btn btn-warning mb-4 mx-auto" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

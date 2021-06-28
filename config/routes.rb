@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'evaluations/new'
   root to: 'home#top'
   
   #owner_sessions

@@ -4,7 +4,8 @@ before_action :set_shop, except: :index_for_user
 
   # ユーザーに対して、過去も含めた予約一覧
   def index_for_user
-    @calendars = Calendar.where(user_id: session[:user_id])
+    @furture_calendars = Calendar.where(user_id: session[:user_id], rent_date: Date.today..Float::INFINITY)
+    @past_calendars = Calendar.where(user_id: session[:user_id]).where.not(rent_date: Date.today..Float::INFINITY)
   end
 
   # オーナーに対して、過去も含めた予約一覧
@@ -44,6 +45,7 @@ before_action :set_shop, except: :index_for_user
 
   # ユーザーへの確認画面
   def confirm
+    @calendar = Calendar.new
     # 「次の週へ」
     if params[:next] != nil
       today = params[:calendar][:day].to_date
