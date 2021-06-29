@@ -5,39 +5,42 @@
       <%= image_tag @user.image.url, width: "250" %>
     </div>
     <div class="col-lg-8 col-sm-12">
-      <%= @user.name %><br>
+      ユーザー名: <%= @user.name %><br>
       <i class="far fa-star"></i>
       <i class="far fa-star"></i>
       <i class="far fa-star"></i><br>
-      Eメール：<%= @user.email %><br>
-      <p>口コミ評価：口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文口コミ評価の本文</p>
+      Eメール：: <%= @user.email %><br>
+      <p>口コミ評価: <%= @rate %></p>
+      <% @evaluations.each do |evaluate| %>
+      <ul>
+        <li><%= evaluate%></li>
+      </ul>
+      <% end %>
       <%= link_to "登録情報編集", u_edit_path, class: "btn btn-light mb-4" %><br>
     </div>
   </div>
   <div class="row">
     <div class="col-lg-6 col-sm-12">
-      <h2>現在申込中の店舗</h2>
-      <% if @newest_reserve != [] %>
-      <% @newest_reserve.each do |cal| %>
-      <% if Date.parse(cal.rent_date) >= Date.today && cal.shop.image? %>
-      <%= link_to image_tag(cal.shop.image.url), s_show_path(cal.shop.id)%>
-      <% elsif Date.parse(cal.rent_date) >= Date.today %>
-      <%= link_to cal.shop.name, s_show_path(cal.shop) %><br>
-      <% end %>
+      <h2>今後の予約</h2>
+      <% if @furture_calendars.present? %>
+      <% @furture_calendars.each do |calendar| %>
+      <ul>
+        <li><%= calendar.rent_date %> <%= calendar.start_time %></li>
+        <%= link_to calendar.shop.name, s_show_path(calendar.shop) %>
+      </ul>
       <% end %>
       <% else %>
       <p>現在、申込中の店舗はありません</p>
       <% end %>
     </div>
     <div class="col-lg-6 col-sm-12">
-      <h2>過去に利用した店舗</h2>
-      <% if @newest_reserve != [] %>
-      <% @newest_reserve.each do |cal| %>
-      <% if Date.parse(cal.rent_date) < Date.today && cal.shop.image? %>
-      <%= link_to image_tag(cal.shop.image.url), s_show_path(cal.shop.id)%>
-      <% elsif Date.parse(cal.rent_date) < Date.today %>
-      <%= link_to cal.shop.name, s_show_path(cal.shop) %><br>
-      <% end %>
+      <h2>過去の予約</h2>
+      <% if @past_calendars.present? %>
+      <% @past_calendars.each do |calendar| %>
+      <ul>
+        <li><%= calendar.rent_date %> <%= calendar.start_time %></li>
+        <%= link_to calendar.shop.name, s_show_path(calendar.shop) %>
+      </ul>
       <% end %>
       <% else %>
       <p>まだありません</p>

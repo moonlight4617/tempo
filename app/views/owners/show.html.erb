@@ -30,7 +30,7 @@
           <li>日付: <%= cal.rent_date %> 時間: <%= cal.start_time %></li>
           <p>
             <%= link_to "予約者: #{cal.user.name}", u_show_for_owner_path(cal.user) %><br>
-            <%= link_to "メッセージを送信する", ch_show_owner_path(shop.id, user: User.find(cal.user_id).public_uid) %>
+            <%= link_to "メッセージを送信する", ch_show_owner_path(id: shop.id, user_id: cal.user) %>
           </p>
         </ul>
         <% end %>
