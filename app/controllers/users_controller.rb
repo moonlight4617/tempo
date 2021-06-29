@@ -21,12 +21,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @calendars = Calendar.where(user_id: session[:user_id])
-    shop_id = @calendars.select(:shop_id).distinct.pluck(:shop_id)
-    @newest_reserve = []
-    shop_id.each do |shop|
-      @newest_reserve.push(@calendars.where(shop_id: shop).order(:rent_date, :start_time).last)
-    end
+    @furture_calendars = Calendar.where(user_id: session[:user_id], rent_date: Date.today..Float::INFINITY)
+    @past_calendars = Calendar.where.not(user_id: session[:user_id], rent_date: Date.today..Float::INFINITY)
     @evaluations = @user.evaluations.limit(3)
     @rate = @user.evaluations.average(:rate)
   end
