@@ -1,14 +1,19 @@
-<h3>予約日時</h3>
-<% if @calendars.present? %>
-<p>店舗：<%= @calendars[0].shop.name %></p>
-<% @calendars.each.with_index do |cal, i| %>
-<p>予約<%= i + 1 %></p>
-<ul>
-  <li>日付：<%= cal.rent_date %></li>
-  <li>開始時刻<%= cal.start_time %></li>
-</ul>
-<% end %>
-<% else %>
-今後の予約はありません。
-<% end %>
-<%= link_to "店舗詳細へ戻る", s_show_path(@calendars[0].shop), class: "btn btn-light mt-0 mr-2" %>
+<div class="container">
+  <h3 class="text-center"><%=@shop.name%>への予約日時</h3>
+  <div class="col-lg-6 col-md-8 col-sm-10 mx-auto">
+    <% if @calendars.present? %>
+    <% @calendars.each.with_index do |cal, i| %>
+    <p>予約<%= i + 1 %></p>
+    <ul>
+      <li>日付：<%= cal.rent_date %></li>
+      <li>開始時刻<%= cal.start_time %></li>
+    </ul>
+    <% end %>
+    <% else %>
+    今後の予約はありません。
+    <% end %>
+    <div class="text-center">
+      <%= link_to "店舗詳細へ戻る", s_show_path(@calendars[0].shop), class: "btn btn-light mt-0 mr-2" %>
+    </div>
+  </div>
+</div>

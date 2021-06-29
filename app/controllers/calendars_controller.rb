@@ -10,7 +10,8 @@ before_action :set_shop, except: :index_for_user
 
   # オーナーに対して、過去も含めた予約一覧
   def index_for_shop
-    @calendars = Calendar.where(shop_id: params[:id])
+    @furture_calendars = Calendar.where(shop_id: params[:id], rent_date: Date.today..Float::INFINITY)
+    @past_calendars = Calendar.where(user_id: session[:user_id]).where.not(rent_date: Date.today..Float::INFINITY)
   end
 
   # ユーザーが予約する際の表示
@@ -40,7 +41,7 @@ before_action :set_shop, except: :index_for_user
       @available.delete
       i += 2
     end
-    redirect_to c_index_path
+    redirect_to ch_show_path
   end
 
   # ユーザーへの確認画面
@@ -97,9 +98,10 @@ before_action :set_shop, except: :index_for_user
     end
   end
 
-  # ユーザーに対して、今後の予約一覧
+  # ユーザーに対して、その店舗での今後の予約一覧
   def s_index
     @calendars = @shop.calendars.where(user_id: session[:user_id]).where(rent_date: Date.today..Float::INFINITY)
+    
   end
 
   private

@@ -1,11 +1,30 @@
-<h3 class="text-center">予約一覧</h3>
-
-
-<% @calendars.each.with_index do |cal, i| %>
-<p>予約<%= i + 1 %></p>
-<ul>
-  <li>店舗：<%= link_to cal.shop.name, s_show_path(cal.shop)%></li>
-  <li>日付：<%= cal.rent_date %></li>
-  <li>開始時刻：<%= cal.start_time %></li>
-</ul>
-<% end %>
+<div class="container">
+  <h3 class="text-center">予約一覧</h3>
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <h5 class="text-center py-2">今後の予約</h5>
+      <% @furture_calendars.each.with_index do |cal, i| %>
+      <p>予約<%= i + 1 %></p>
+      <ul>
+        <li>予約者: <%= link_to cal.user.name, u_show_for_owner_path(cal.user)%></li>
+        <li>日付: <%= cal.rent_date %></li>
+        <li>開始時刻: <%= cal.start_time %></li>
+      </ul>
+      <% end %>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <h5 class="text-center py-2">過去の予約</h5>
+      <% @past_calendars.each.with_index do |cal, i| %>
+      <p>予約<%= i + 1 %></p>
+      <ul>
+        <li>店舗：<%= link_to cal.shop.name, s_show_path(cal.shop)%></li>
+        <li>日付: <%= cal.rent_date %></li>
+        <li>開始時刻: <%= cal.start_time %></li>
+      </ul>
+      <% end %>
+    </div>
+  </div>
+  <div class="text-center">
+    <%= link_to "マイアカウントに戻る", o_show_path, class: "btn btn-warning"%>
+  </div>
+</div>
