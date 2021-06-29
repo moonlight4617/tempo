@@ -46,5 +46,8 @@
       <p>まだありません</p>
       <% end %>
     </div>
+    <% if @furture_calendars.size == 10 || @past_calendars.size == 10 %>
+    <%= link_to "予約一覧", c_index_path %>
+    <% end %>
   </div>
 </div>

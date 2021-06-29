@@ -2,13 +2,18 @@ class CalendarsController < ApplicationController
 
 before_action :set_shop, except: :index_for_user
 
-  # ユーザーに対して、過去も含めた予約一覧
+  # ユーザーに対して、予約一覧
   def index_for_user
     @furture_calendars = Calendar.where(user_id: session[:user_id], rent_date: Date.today..Float::INFINITY)
     @past_calendars = Calendar.where(user_id: session[:user_id]).where.not(rent_date: Date.today..Float::INFINITY)
   end
 
-  # オーナーに対して、過去も含めた予約一覧
+  # ユーザーに対して、その店舗での今後の予約一覧
+  def individual_calendar_for_user
+    @calendars = @shop.calendars.where(user_id: session[:user_id]).where(rent_date: Date.today..Float::INFINITY)
+  end
+
+  # オーナーに対して、予約一覧
   def index_for_shop
     @furture_calendars = Calendar.where(shop_id: params[:id], rent_date: Date.today..Float::INFINITY)
     @past_calendars = Calendar.where(user_id: session[:user_id]).where.not(rent_date: Date.today..Float::INFINITY)
@@ -96,12 +101,6 @@ before_action :set_shop, except: :index_for_user
       flash[:danger] = "日時を選択してください"
       redirect_to c_new_path
     end
-  end
-
-  # ユーザーに対して、その店舗での今後の予約一覧
-  def s_index
-    @calendars = @shop.calendars.where(user_id: session[:user_id]).where(rent_date: Date.today..Float::INFINITY)
-    
   end
 
   private

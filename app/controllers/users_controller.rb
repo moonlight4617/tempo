@@ -21,8 +21,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @furture_calendars = Calendar.where(user_id: session[:user_id], rent_date: Date.today..Float::INFINITY)
-    @past_calendars = Calendar.where.not(user_id: session[:user_id], rent_date: Date.today..Float::INFINITY)
+    @furture_calendars = Calendar.where(user_id: session[:user_id], rent_date: Date.today..Float::INFINITY).order(rent_date: "DESC", start_time: "DESC").limit(10)
+    @past_calendars = Calendar.where.not(user_id: session[:user_id], rent_date: Date.today..Float::INFINITY).order(rent_date: "DESC", start_time: "DESC").limit(10)
     @evaluations = @user.evaluations.limit(3)
     @rate = @user.evaluations.average(:rate)
   end
