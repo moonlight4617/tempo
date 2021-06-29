@@ -1,6 +1,7 @@
 <div class="container-fluid mt-5">
   <div class="row">
     <div class="col-lg-6 col-sm-10 mx-auto">
+      <h5 class="text-center"><%= @shop.name %>への予約ページ</h5>
       <small class="text-danger">* チェックを入れられる日時のみ選択可能です。<br>* ご希望する日時にチェックを入れて「申し込み画面」へお進みください。</small>
       <%= form_for(:calendar, url:{controller: 'calendars', action: 'confirm' }, html: {method: 'GET'}) do |f| %>
       <table class="table table-striped mx-auto">
@@ -44,9 +45,9 @@
       <div class="text-center pt-1">
         <%= f.submit "申し込み画面へ", class: "btn btn-light mt-1" %>
         <%= link_to "店舗に質問を送る", ch_show_path, class: "btn btn-light mt-1 ml-3" %>
+        <%= link_to "店舗詳細に戻る", s_show_path(@shop), class: "btn btn-warning mt-1 ml-3" %>
       </div>
       <% end%>
-
     </div>
   </div>
 </div>

@@ -1,12 +1,20 @@
-<h3 class="text-center">質問メッセージ 一覧</h3>
-<% if @chats.present? %>
-<% @chats.each do |chat| %>
-<% user = chat.user %>
-<ul>
-  <li><%= link_to "#{user.name }とのメッセージ", ch_show_owner_path(chat.shop, user_id: chat.user) %></li>
-  <%= chat.messages.last.content %>
-</ul>
-<% end %>
-<% else %>
-＜メッセージはありません＞
-<% end %>
+<div class="container">
+  <div class="row">
+    <h3 class="text-center">質問メッセージ 一覧</h3>
+    <% if @chats.present? %>
+    <% @chats.each do |chat| %>
+    <% user = chat.user %>
+    <ul>
+      <li><%= link_to "#{user.name }とのメッセージ", ch_show_owner_path(chat.shop, user_id: chat.user) %></li>
+      <%= chat.messages.last.content %>
+      <small>-<%= l chat.messages.last.created_at, format: :short %>-</small>
+    </ul>
+    <% end %>
+    <% else %>
+    ＜メッセージはありません＞
+    <% end %>
+    <div class="text-center">
+      <%= link_to "マイアカウントに戻る", o_show_path, class: "btn btn-warning"%>
+    </div>
+  </div>
+</div>

@@ -39,6 +39,6 @@ class OwnerSessionsController < ApplicationController
       session.delete(:user_id)
       forget_user(@user)
     end
-    redirect_back_or(s_index_path)
+    redirect_back_or(o_show_path)
   end
 end
