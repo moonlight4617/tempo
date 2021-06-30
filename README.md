@@ -4,6 +4,10 @@ tempo (テンポ)<br>
 # アプリケーション概要
 飲食店などの実店舗を休業日や準備時間中に、第三者に貸し出すことができるサービスを実現するアプリ。<br>
 <br>
+# デモ画面
+![Animated GIF-downsized](https://user-images.githubusercontent.com/70841616/123927318-b3037680-d9c7-11eb-92bd-618887ab4fa1.gif)
+
+
 # アプリケーション機能
 <h4>・ユーザー側</h4>
 　ユーザー新規登録、ログインシステム<br>
