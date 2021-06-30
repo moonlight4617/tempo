@@ -47,12 +47,12 @@ Rails.application.routes.draw do
   delete 'shops/:id/chats/:id/delete', to: 'chats#destroy', as: 'ch_d' 
 
   #calendars
-  get 'shops/calendars/index', to: 'calendars#index_for_user', as: 'c_index'
-  get 'shops/:id/calendars/index_shop', to: 'calendars#index_for_shop', as: 'c_index_shop'
+  get 'shops/calendars/index_for_user', to: 'calendars#index_for_user', as: 'c_index'
+  get 'shops/:id/calendars/index_for_shop', to: 'calendars#index_for_shop', as: 'c_index_shop'
   get 'shops/:id/calendars/new', to: 'calendars#new', as: 'c_new'
   get 'shops/:id/calendars/next', to: 'calendars#next', as: 'c_next'
   get 'shops/:id/calendars/prev', to: 'calendars#prev', as: 'c_prev'
-  get 'shops/:id/calendars/s_index', to: 'calendars#s_index', as: 'c_s_index'
+  get 'shops/:id/calendars/individual_calendar_for_user', to: 'calendars#individual_calendar_for_user', as: 'c_s_index'
   get 'shops/:id/calendars/:id/edit', to: 'calendars#edit', as: 'c_edit'
   get 'shops/:id/calendars/confirm', to: 'calendars#confirm', as: 'c_confirm'
   post 'shops/:id/calendars/new', to: 'calendars#create', as: 'c_create'

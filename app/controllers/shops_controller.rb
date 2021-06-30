@@ -77,7 +77,7 @@ class ShopsController < ApplicationController
 
   def select_prefecture
     if params[:tags] 
-      @shops = Shop.where("prefecture LIKE ?", "%#{params[:prefecture]}%").joins(:tag_to_shops).where(tag_to_shops: {tag_id: params[:tags]}).page(params[:page]).per(50)
+      @shops = Shop.joins(:tag_to_shops).where(tag_to_shops: {tag_id: params[:tags]}).where("prefecture LIKE ?", "%#{params[:prefecture]}%").distinct.page(params[:page]).per(50)
     else
       @shops = Shop.where("prefecture LIKE ?", "%#{params[:prefecture]}%").page(params[:page]).per(50)
     end
