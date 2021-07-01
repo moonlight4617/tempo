@@ -7,15 +7,15 @@ class OwnerSessionsController < ApplicationController
   end
 
   def create
-    owner = Owner.find_by(email: params[:owner_session][:email].downcase)
-    if owner && owner.authenticate(params[:owner_session][:password])
+    owner = Owner.find_by(email: params[:email].downcase)
+    if owner && owner.authenticate(params[:password])
       session[:owner_id] = owner.id
       if session[:user_id]
         @user = User.find(session[:user_id])
         session.delete(:user_id)
         forget(@user)
       end
-      params[:owner_session][:remember_owner] == '1' ? remember_owner(owner) : forget_owner(owner)
+      params[:remember_owner] == '1' ? remember_owner(owner) : forget_owner(owner)
       redirect_back_or(o_show_path)
     else
       flash.now[:danger] = 'Eメールまたはパスワードが有効のものではありません'
@@ -41,4 +41,5 @@ class OwnerSessionsController < ApplicationController
     end
     redirect_back_or(o_show_path)
   end
+
 end
