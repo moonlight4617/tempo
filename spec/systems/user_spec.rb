@@ -41,11 +41,24 @@ RSpec.describe User, type: :system do
           expect(page).to have_selector(".alert-warning", text: "登録情報が正しく入力されていません")
         end
       end
+
       it "passwordとpassword_confirmationが別" do
         fill_in "name", with: "sample_user"
         fill_in "email", with: "registration@example.com"
         fill_in "password", with: "12345678"
         fill_in "password_confirmation", with: "87654321"
+        click_button "登録"
+        aggregate_failures do
+          expect(current_path).to eq u_new_path
+          expect(page).to have_selector(".alert-warning", text: "登録情報が正しく入力されていません")
+        end
+      end
+
+      it "passwordが6文字未満" do
+        fill_in "name", with: "sample_user"
+        fill_in "email", with: "registration@example.com"
+        fill_in "password", with: "12345"
+        fill_in "password_confirmation", with: "12345"
         click_button "登録"
         aggregate_failures do
           expect(current_path).to eq u_new_path
@@ -59,18 +72,26 @@ RSpec.describe User, type: :system do
         visit u_new_path
         fill_in "name", with: "新規登録テストユーザー"
         fill_in "email", with: "registration@example.com"
-        fill_in "password", with: "12345678"
-        fill_in "password_confirmation", with: "12345678"
+        fill_in "password", with: "Abcdefgh"
+        fill_in "password_confirmation", with: "Abcdefgh"
         click_button "登録"
       end
       it "新規作成" do
         expect(current_path).to eq u_show_path(User.last)
       end
 
+      it "Eメールが大文字小文字区別しない" do
+        visit user_login_path
+        fill_in "inputEmail", with: "REGISTRATION@example.com"
+        fill_in "inputPassword", with: "Abcdefgh"
+        click_button "ログイン"
+        expect(current_path).to eq s_index_path
+      end
+
       it "編集・更新" do
         visit user_login_path
         fill_in "inputEmail", with: "registration@example.com"
-        fill_in "inputPassword", with: "12345678"
+        fill_in "inputPassword", with: "Abcdefgh"
         click_button "ログイン"
         expect(current_path).to eq s_index_path
         visit u_edit_path

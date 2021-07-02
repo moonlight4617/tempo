@@ -67,6 +67,14 @@ RSpec.describe Owner, type: :system do
         expect(current_path).to eq s_new_path
       end
 
+      it "Eメールが大文字・小文字区別しない" do
+        visit owner_login_path
+        fill_in "inputEmail", with: "REGISTRATION@example.com"
+        fill_in "inputPassword", with: "12345678"
+        click_button "ログイン"
+        expect(current_path).to eq o_show_path
+      end
+
       it "編集・更新" do
         visit owner_login_path
         fill_in "inputEmail", with: "registration@example.com"
