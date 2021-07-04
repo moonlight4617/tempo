@@ -11,10 +11,9 @@ development:
   <<: *default
   socket: /tmp/mysql.sock
   database: tempo_development
-  password: password
-  # password: 
-  host: <%= ENV.fetch("APP_DATABASE_HOST") { 'db' } %>
-  username: root
+  password: <%= ENV['DEVELOPMENT_DB_PASSWORD'] %>
+  username: <%= ENV['DEVELOPMENT_DB_USERNAME'] %>
+  # host: <%= ENV.fetch("APP_DATABASE_HOST") { 'db' } %>
 
 
 
@@ -25,15 +24,15 @@ test:
   <<: *default
   socket: /tmp/mysql.sock
   database: tempo_test
-  # password: <%= Rails.application.credentials.db[:password] %>
-  password: 
-  username: root
+  password: <%= ENV['TEST_DB_PASSWORD'] %>
+  username: <%= ENV['TEST_DB_USERNAME'] %>
  
 
 production:
   <<: *default
   socket: /var/lib/mysql/mysql.sock
   database: tempo_production
-  password: <%= Rails.application.credentials.db[:password] %>
-  username: <%= Rails.application.credentials.db[:username] %>
-  
+  # password: <%= Rails.application.credentials.db[:password] %>
+  # username: <%= Rails.application.credentials.db[:username] %>
+  password: <%= ENV['PRODUCTION_DB_PASSWORD'] %>
+  username: <%= ENV['PRODUCTION_DB_USERNAME'] %>
