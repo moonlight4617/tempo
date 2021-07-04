@@ -50,7 +50,7 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.7.0)
+    addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     ansi (1.5.0)
     archive-zip (0.12.0)
@@ -273,7 +273,7 @@ GEM
     ruby-vips (2.1.2)
       ffi (~> 1.12)
     ruby_dep (1.5.0)
-    rubyzip (2.3.0)
+    rubyzip (2.3.1)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -375,4 +375,4 @@ RUBY VERSION
    ruby 2.6.2p47
 
 BUNDLED WITH
-   2.2.21
+   2.2.16
