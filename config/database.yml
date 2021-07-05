@@ -24,8 +24,8 @@ test:
   <<: *default
   socket: /tmp/mysql.sock
   database: tempo_test
-  password: <%= ENV['TEST_DB_PASSWORD'] %>
-  username: <%= ENV['TEST_DB_USERNAME'] %>
+  password: 
+  username: root
  
 
 production:
