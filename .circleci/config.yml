@@ -34,8 +34,10 @@ jobs:
       - ruby/install-deps:
           bundler-version: 2.2.16
       - run:
-          name: Database setup
+          name: Database create
           command: bundle exec rails db:create
+      - run:
+          name: Database setup
           command: bundle exec rails db:schema:load
       - run:
           name: test
