@@ -35,7 +35,8 @@ jobs:
           bundler-version: 2.2.16
       - run:
           name: Database setup
-          command: bundle exec rails db:migrate
+          command: bundle exec rails db:create
+          command: bundle exec rails db:schema:load
       - run:
           name: test
           command: bundle exec rails test
