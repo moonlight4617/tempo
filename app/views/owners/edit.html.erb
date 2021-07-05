@@ -7,9 +7,8 @@
       <%= form_with model: @owner, url: o_update_path, class: "needs-validation", local: "true" do |f| %>
       <%= render '/layouts/error_messages' %>
       <%= f.label :name, "名前" %><span class="required"> *必須項目</span>
-      <%= f.text_field :name, class: "form-control" %>
+      <%= f.text_field :name, class: "form-control", id: "name" %>
       <br>
-
       <%= f.label :email, "Eメール" %><span class="required"> *必須項目</span>
       <%= f.text_field :email, class:"form-control" %>
       <br>

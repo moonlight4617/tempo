@@ -15,6 +15,7 @@ class OwnersController < ApplicationController
       flash[:success] = "オーナー登録されました"
       redirect_to s_new_path
     else
+      flash[:warning] = "登録情報が正しく入力されていません"
       render 'new'
     end
   end

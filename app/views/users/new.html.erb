@@ -19,7 +19,7 @@
     <%= f.label :password, "パスワード" %><span class="required"> *必須項目・6文字以上</span>
     <%= f.password_field :password, class: "form-control", id: "password" %><br>
     <%= f.label :password_confirmation, "パスワードの確認" %><span class="required"> *必須項目</span>
-    <%= f.password_field :password_confirmation, class: "form-control", id: "password_confirmation"%><br>
+    <%= f.password_field :password_confirmation, class: "form-control", id: "password_confirmation" %><br>
     <%= f.label :image, "プロフィール画像" %>
     <%= f.file_field :image, class: "btn" %><br>
     <%= f.submit label="登録", class: "btn btn-light btn-lg btn-block" %>
