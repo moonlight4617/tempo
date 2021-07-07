@@ -180,7 +180,7 @@ GEM
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2021.0225)
+    mime-types-data (3.2021.0704)
     mini_magick (4.11.0)
     mini_mime (1.1.0)
     mini_racer (0.4.0)
@@ -245,7 +245,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
     raindrops (0.19.2)
-    rake (13.0.3)
+    rake (13.0.4)
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -271,7 +271,7 @@ GEM
     ruby-vips (2.1.2)
       ffi (~> 1.12)
     ruby_dep (1.5.0)
-    rubyzip (2.3.1)
+    rubyzip (2.3.2)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -365,7 +365,7 @@ DEPENDENCIES
   rails (~> 5.2.5)
   rails-i18n
   rspec-rails (< 5.0.0)
-  rubyzip
+  rubyzip (~> 2.3, >= 2.3.2)
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
