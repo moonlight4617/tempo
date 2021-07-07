@@ -33,7 +33,5 @@ production:
   <<: *default
   socket: /var/lib/mysql/mysql.sock
   database: tempo_production
-  # password: <%= Rails.application.credentials.db[:password] %>
-  # username: <%= Rails.application.credentials.db[:username] %>
   password: <%= ENV['PRODUCTION_DB_PASSWORD'] %>
   username: <%= ENV['PRODUCTION_DB_USERNAME'] %>
