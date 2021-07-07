@@ -3,7 +3,8 @@ require "rails_helper"
 RSpec.describe Calendar, type: :system do
 
   it "Date.todayの日付が表示されているか" do
-    
+    # visit calendar_new_path
+
   end
 
   it "nextを押した際にDate.todayの７日間後が表示されているか" do
