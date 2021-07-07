@@ -4,7 +4,7 @@ WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 RUN gem install bundler
-RUN bundle config set --local disable_checksum_validation true
+# RUN bundle config set --local disable_checksum_validation true
 RUN bundle install
 
 # Add a script to be executed every time the container starts.
