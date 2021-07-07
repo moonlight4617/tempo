@@ -1,24 +1,76 @@
 version: '3.9'
+
 services:
-  db:
-    image: mysql
-    # command: --default-authentication-plugin=mysql_native_password
-    volumes:
-      - mysql_data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: root
-  web:
-    build: .
+  app:
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
     volumes:
       - .:/myapp
-    ports:
-      - "3000:3000"
+      - log-data:/myapp/log
     environment:
       RAILS_ENV: development
     depends_on:
       - db
+  db:
+    image: mysql:5.7
+    env_file:
+      - .env
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+  nginx:
+    build:
+      context: containers
+    volumes:
+      - public-data:/myapp/public
+      - tmp-data:/myapp/tmp
+    ports:
+      - 80:80
+    depends_on:
+      - app
 volumes:
-  mysql_data:
-  bundle:
+  public-data:
+  tmp-data:
+  log-data:
+  db-data:
+
+# services:
+#   nginx:
+#     build:
+#       context: .
+#       dockerfile: container/Dockerfile
+#     volumes:
+#       - ./public:/var/www/html/public:ro
+#     ports:
+#       - 8080:80
+#     environment:
+#       RAILS_ENV: development
+
+#   db:
+#     image: mysql:5.7
+#     command: --default-authentication-plugin=mysql_native_password
+#     volumes:
+#       - mysql_data:/var/lib/mysql
+#     environment:
+#       MYSQL_ROOT_PASSWORD: password
+#       MYSQL_DATABASE: root
+#   web:
+#     build: .
+#     command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+#     volumes:
+#       - .:/myapp
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       RAILS_ENV: development
+#     depends_on:
+#       - db
+# volumes:
+#   mysql_data:
+#   bundle:

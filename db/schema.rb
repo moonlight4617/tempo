@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_06_24_025511) do
 
-  create_table "availables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+  create_table "availables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "rent_date"
     t.string "start_time"
     t.bigint "shop_id"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_06_24_025511) do
     t.index ["shop_id"], name: "index_availables_on_shop_id"
   end
 
-  create_table "calendars", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+  create_table "calendars", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "start_time"
     t.string "end_time"
     t.string "rent_date"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2021_06_24_025511) do
     t.index ["user_id"], name: "index_calendars_on_user_id"
   end
 
-  create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+  create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "room_name"
     t.integer "application_flg"
     t.bigint "shop_id"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2021_06_24_025511) do
     t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
-  create_table "evaluations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+  create_table "evaluations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "comment"
     t.integer "rate"
     t.integer "toshop"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2021_06_24_025511) do
     t.index ["user_id"], name: "index_evaluations_on_user_id"
   end
 
-  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "shop_id"
     t.datetime "created_at", null: false
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2021_06_24_025511) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
     t.integer "fin_flg"
     t.integer "del_flg"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2021_06_24_025511) do
     t.index ["chat_id"], name: "index_messages_on_chat_id"
   end
 
-  create_table "owners", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+  create_table "owners", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "address"
     t.string "tel"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 2021_06_24_025511) do
     t.index ["email"], name: "index_owners_on_email", unique: true
   end
 
-  create_table "shops", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+  create_table "shops", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "prefecture"
     t.string "city"
     t.string "address"
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 2021_06_24_025511) do
     t.text "business_time"
   end
 
-  create_table "tag_to_shops", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+  create_table "tag_to_shops", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "tag_id"
     t.bigint "shop_id"
     t.datetime "created_at", null: false
@@ -119,13 +119,13 @@ ActiveRecord::Schema.define(version: 2021_06_24_025511) do
     t.index ["tag_id"], name: "index_tag_to_shops_on_tag_id"
   end
 
-  create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+  create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "address"
     t.string "tel"
     t.string "email"

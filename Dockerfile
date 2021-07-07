@@ -14,5 +14,7 @@ ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
 RUN mkdir -p tmp/sockets
+RUN mkdir tmp/pids
+CMD bundle exec puma
 # Configure the main process to run when running the image
 # CMD ["rails", "server", "-b", "0.0.0.0"]
