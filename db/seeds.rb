@@ -30,27 +30,24 @@ Shop.create!(
   owner_id: owner.id,
   name: shop_name,
   zip_code: zip_code,
-  prefecture: @prefecture[Faker::Number.within(range: 0..4)],
+  prefecture: @prefecture[Faker::Number.within(range: 0..3)],
   city: city,
   tel: tel,
   station: station,
 )
 
 10.times do |n|
-  name = Faker::Name.name
-  email = Faker::Internet.email
-  password = '12345678'
   owner = Owner.create!(
-    name: name,
-    email: email,
-    password: password,
-    password_confirmation: password,
+    name: Faker::Name.name,
+    email: Faker::Internet.email,
+    password: '12345678',
+    password_confirmation: '12345678',
   )
   Shop.create!(
     owner_id: owner.id,
     name: Faker::Creature::Animal.name,
     zip_code: Faker::Address.zip_code,
-    prefecture: @prefecture[Faker::Number.within(range: 0..4)],
+    prefecture: @prefecture[Faker::Number.within(range: 0..3)],
     city: Faker::Address.city,
     tel: Faker::PhoneNumber.phone_number,
     station: Faker::Mountain.name,

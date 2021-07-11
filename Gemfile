@@ -45,16 +45,21 @@ gem 'public_uid'
 
 gem 'rails-i18n'
 
-# gem 'faker'
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 
 gem 'kaminari'
 
 gem 'fog-aws'
 
+gem 'dotenv-rails'
+
+gem 'rubyzip', '~> 2.3', '>= 2.3.2'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails'
+  gem 'rspec-rails', '<5.0.0'
 end
 
 group :development do
@@ -64,19 +69,18 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-commands-rspec'
 end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
+  gem 'webdrivers'
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'guard'
   gem 'guard-minitest'
-  gem 'rspec-rails', '<5.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

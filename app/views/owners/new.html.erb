@@ -6,20 +6,20 @@
     <%= form_with model: @owner, url: o_new_path, class: "needs-validation", local: "true" do |f| %>
     <%= render '/layouts/error_messages' %>
     <%= f.label :name, "名前" %><span class="required"> *必須項目</span>
-    <%= f.text_field :name, class: "form-control" %>
+    <%= f.text_field :name, class: "form-control", id: "name" %>
     <br>
 
     <%= f.label :email, "Eメール" %><span class="required"> *必須項目</span>
-    <%= f.text_field :email, class:"form-control" %>
+    <%= f.text_field :email, class:"form-control", id: "email" %>
     <br>
     <%= f.label :tel, "電話番号" %>
     <%= f.text_field :tel, class: "form-control" %><br>
     <%= f.label :address, '住所' %>
     <%= f.text_field :address, class: "form-control" %><br>
     <%= f.label :password, "パスワード" %><span class="required"> *必須項目</span>
-    <%= f.password_field :password, class: "form-control" %><br>
+    <%= f.password_field :password, class: "form-control", id: "password" %><br>
     <%= f.label :password_confirmation, "パスワードの確認" %><span class="required"> *必須項目</span>
-    <%= f.password_field :password_confirmation, class: "form-control" %><br>
+    <%= f.password_field :password_confirmation, class: "form-control", id: "password_confirmation" %><br>
     <%= f.submit label="登録", class: "btn btn-light btn-lg btn-block" %>
     <% end %>
   </div>
