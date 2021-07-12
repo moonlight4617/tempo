@@ -24,7 +24,7 @@ test:
   <<: *default
   socket: /tmp/mysql.sock
   database: tempo_test
-  password: 
+  password: password
   username: root
   host: <%= ENV.fetch("DB_HOST") { 'localhost' } %>
  
