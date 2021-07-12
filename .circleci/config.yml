@@ -35,7 +35,7 @@ jobs:
       - ruby/install-deps:
           bundler-version: 2.2.16
       - run:
-          name: Database create
+          name: Database migrate
           command: bundle exec rails db:migrate
       - run:
           name: test

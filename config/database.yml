@@ -13,7 +13,7 @@ development:
   database: tempo_development
   password: <%= Rails.application.credentials.db[:development_password] %>
   username: <%= Rails.application.credentials.db[:username] %>
-  host: <%= ENV.fetch("DB_HOST") { 'localhost' } %>
+  host: <%= ENV['DB_HOST'] %>
 
 
 
