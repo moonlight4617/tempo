@@ -36,10 +36,10 @@ jobs:
           bundler-version: 2.2.16
       - run:
           name: Database migrate
-          command: bundle exec rails db:migrate
+          command: bin/rails db:migrate
       - run:
           name: test
-          command: bundle exec rspec
+          command: bin/rails test
 
   # deploy:
   #   docker:
