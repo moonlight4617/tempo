@@ -10,16 +10,14 @@ class ShopReservationFrameTest < ActionDispatch::IntegrationTest
     @day1 = Date.today.wday+1
   end
 
-  # 予約開放し、Availableテーブルのデータが増えているか
-  test "open reservation frame" do
+  test "予約開放し、Availableテーブルのデータが増えているか" do
     get s_res_path(@shop)
     assert_difference 'Available.count', 1 do
       post s_set_res_path(@shop), params: { rent_date: Date.today, start_time: "10", end_time: "11"}
     end
   end
 
-  # 曜日開放し、Availableテーブルのデータが増えているか
-  test "open reservation day frame" do
+  test "曜日開放し、Availableテーブルのデータが増えているか" do
     get s_res_path(@shop)
     assert_difference 'Available.count', 4 do
       post s_day_res_path(@shop), params: { rent_start: Date.today, rent_end: Date.today+13, start_time: "10", end_time: "11", day: ["0", "1"]}
@@ -35,8 +33,7 @@ class ShopReservationFrameTest < ActionDispatch::IntegrationTest
   #   end
   # end
 
-  # 予約閉鎖し、Availableテーブルのデータが減っているか
-  test "close reservation frame" do
+  test "予約閉鎖し、Availableテーブルのデータが減っているか" do
     assert_no_difference 'Available.count' do
       get s_res_path(@shop)
       post s_set_res_path(@shop), params: { rent_date: Date.today, start_time: "10", end_time: "11"}

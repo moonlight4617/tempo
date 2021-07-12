@@ -23,7 +23,7 @@ class OwnersSessionTest < ActionDispatch::IntegrationTest
     assert session[:owner_id].nil?
   end
   
-  test "login_owner with remembering and without remembering" do
+  test "ownerログイン時のremember_meが正常に機能しているか" do
     # クッキーを保存してログイン
     get owner_login_path
     post owner_logged_in_path, params: { email: @owner.email, password: 'password', remember_owner: '1' }
