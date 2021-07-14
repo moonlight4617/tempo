@@ -13,7 +13,7 @@ development:
   <<: *default
   socket: /tmp/mysql.sock
   database: tempo_development
-  host: <%= ENV['DB_HOST'] %>
+  host: <%= ENV.fetch("DB_HOST") { 'localhost' } %>
 
 
 
