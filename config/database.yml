@@ -5,14 +5,14 @@ default: &default
   timeout: 5000
   encording: utf8
   reconnect: false
+  password: <%= Rails.application.credentials.db[:development_password] %>
+  username: <%= Rails.application.credentials.db[:username] %>
   
 
 development:
   <<: *default
   socket: /tmp/mysql.sock
   database: tempo_development
-  password: <%= Rails.application.credentials.db[:development_password] %>
-  username: <%= Rails.application.credentials.db[:username] %>
   host: <%= ENV['DB_HOST'] %>
 
 
@@ -24,8 +24,6 @@ test:
   <<: *default
   socket: /tmp/mysql.sock
   database: tempo_test
-  password: password
-  username: root
   host: <%= ENV.fetch("DB_HOST") { 'localhost' } %>
  
 

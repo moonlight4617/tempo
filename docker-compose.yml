@@ -6,8 +6,6 @@ services:
       context: .
     ports:
       - "3000:3000"
-    # env_file:
-    #   - .env
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
     volumes:
       - .:/myapp
@@ -18,22 +16,13 @@ services:
       - "SELENIUM_DRIVER_URL=http://selenium_chrome:4444/wd/hub"
     depends_on:
       - db
-  selenium_chrome:
-    image: selenium/standalone-chrome-debug
-    logging:
-      driver: none
   db:
     image: mysql:5.7
-    # env_file:
-    #   - .env
     volumes:
       - db-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      # mysqlのhostにdbを指定するための環境変数
-      # MYSQL_HOST: db
-
   nginx:
     build:
       context: containers
