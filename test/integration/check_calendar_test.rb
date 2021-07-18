@@ -1,13 +1,6 @@
 require 'test_helper'
 
-class CalendarsControllerTest < ActionDispatch::IntegrationTest
-
-  # Date.todayの日付が表示されているか
-  # nextを押した際にDate.todayの７日間後が表示されているか
-  # prevを押した際にDate.todayの７日間前が表示されているか
-  # 日時をチェックして申込画面へを押すと確認画面へと遷移しているか
-  # 確認画面から戻るボタンを押すと選択画面へ遷移しているか
-  # 確認画面から確定すると確定画面へと遷移しているか
+class CheckCalendarTest < ActionDispatch::IntegrationTest
 
   def setup
     @shop = shops(:sample_shop)
@@ -24,7 +17,7 @@ class CalendarsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "予約する" do
+  test "ログインして予約する" do
     assert_difference 'Calendar.count', 1 do
       get user_login_path
       post user_logged_in_path, params: { user_session: { email: "user@example.com", password: "123456" } }
@@ -34,5 +27,11 @@ class CalendarsControllerTest < ActionDispatch::IntegrationTest
       post c_create_path(@shop), params: { calendar: { candidate_days: "2021-07-14 12:00:00"} }
     end
   end
+
+  # 複数日予約して、Calendarテーブルの数が増えているか
+  # 過去日付を選択した際にエラーとして戻されるか
+  # すでに予約が入っている日時を選択して、エラーとして戻されるか
+  # 店舗が予約開放していない日時を選択してエラーとして戻されるか
+  # 3ヶ月以上先の予約をした場合にエラーで戻される
 
 end
