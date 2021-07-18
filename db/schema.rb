@@ -139,7 +139,6 @@ ActiveRecord::Schema.define(version: 2021_06_24_025511) do
     t.string "public_uid"
     t.integer "admin"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["public_uid"], name: "index_users_on_public_uid", unique: true
   end
 
   add_foreign_key "availables", "shops"
