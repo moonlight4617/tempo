@@ -29,8 +29,7 @@ tempo (テンポ)<br>
 　特徴タグの選択機能<br>
 
 # URL
-http://ec2-52-199-214-132.ap-northeast-1.compute.amazonaws.com/
-
+https://tempoooo.net/
 # 利用方法
 <h4>ユーザー側</h4>
   1. 店舗一覧や、「都道府県」・「特徴タグ」などから検索して、希望に合う店舗を探す。<br>
