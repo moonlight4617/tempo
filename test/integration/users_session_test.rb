@@ -6,7 +6,7 @@ class UsersSessionTest < ActionDispatch::IntegrationTest
     @user = users(:ryoji)
   end
 
-  test "user_login with invalid information" do
+  test "Eメール、パスワードが空であればログインできない" do
     get user_login_path
     post user_logged_in_path, params: { user_session: { email: "", password: "" } }
     assert_not flash.empty?
@@ -14,7 +14,7 @@ class UsersSessionTest < ActionDispatch::IntegrationTest
     assert flash.empty?
   end
 
-  test "user_login with valid information followed by logout" do
+  test "userの正常なログイン及びログアウト" do
     get user_login_path
     post user_logged_in_path, params: { user_session: { email: @user.email, password: 'password' } }
     assert  is_logged_in?
@@ -23,7 +23,7 @@ class UsersSessionTest < ActionDispatch::IntegrationTest
     assert_not is_logged_in?
   end
 
-  test "login with remembering and without remembering" do
+  test "userログイン時のremember_meが機能しているか" do
     # クッキーを保存してログイン
     log_in_as(@user, remember_me: '1')
     assert_not_empty cookies['remember_token']

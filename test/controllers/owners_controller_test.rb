@@ -5,37 +5,37 @@ class OwnersControllerTest < ActionDispatch::IntegrationTest
     @owner = Owner.new(name: "Example Owner", email: "owner@example.com", password: "123456", password_confirmation: "123456")
   end
 
-  test "owner_should be valid" do
+  test "正常なownerの登録" do
     assert @owner.valid?
   end
 
-  test "owner_name should be present" do
+  test "ownerの名前が空ではいけない" do
     @owner.name = ""
     assert_not @owner.valid?
   end
 
-  test "owner_email should be present" do
+  test "owner_emailが空ではいけない" do
     @owner.email = " "
     assert_not @owner.valid?
   end
 
-  test "owner_password should be present" do
+  test "owner_passwordが空ではいけない" do
     @owner.password = " "
     assert_not @owner.valid?
   end
 
-  test "owner_password_confirmation should be present" do
+  test "owner_password_confirmationが空ではいけない" do
     @owner.password_confirmation = " "
     assert_not @owner.valid?
   end
 
-  test "owner_password & owner_password_confirmation should not be difference" do
+  test "owner_passwordとowner_password_confirmationが違う" do
     @owner.password = "foo"
     @owner.password_confirmation = "bar"
     assert_not @owner.valid?
   end
 
-  test "owner_password & owner_password_confirmation should be same" do
+  test "owner_passwordとowner_password_confirmationが同じ" do
     @owner.password = "foobar"
     @owner.password_confirmation = "foobar"
     assert @owner.valid?

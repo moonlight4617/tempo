@@ -41,8 +41,6 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
   
-
-  # admin機能が使えるuserがuser_indexやowner_indexの画面に遷移することができるか
   test "admin機能が使えるuserの場合、管理者権限画面へアクセスできるか" do
     get user_login_path
     post user_logged_in_path, params: { user_session: { email: "admin_user@example.com", password: "123456" } }
