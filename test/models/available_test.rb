@@ -16,13 +16,13 @@ class AvailableTest < ActiveSupport::TestCase
     assert available.save
   end
 
-  test "shop_id、rent_date、rent_date全てが重複するテーブルは作成されない" do
+  test "shop_id、rent_date、start_time全てが重複するテーブルは作成されない" do
     Available.create(rent_date: "2021.07.21", start_time: "23:00:00", shop_id: @shop.id)
     available = Available.new(rent_date: "2021.07.21", start_time: "23:00:00", shop_id: @shop.id)
     assert_not available.save
   end
 
-  test "shop_id、rent_date、rent_date全てが重複していなければテーブルは作成される" do
+  test "shop_id、rent_date、start_time全てが重複していなければテーブルは作成される" do
     Available.create(rent_date: "2021.07.21", start_time: "23:00:00", shop_id: @shop.id)
     available = Available.new(rent_date: "2021.07.21", start_time: "22:00:00", shop_id: @shop.id)
     assert available.save
